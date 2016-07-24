@@ -12,6 +12,9 @@ class MainMenu: SKScene {
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         let game:BrickBreaker = BrickBreaker(fileNamed: "BrickBreaker")!
         self.view?.presentScene(game)
+        
+        // Simon comment
+        
     }
 
 }
