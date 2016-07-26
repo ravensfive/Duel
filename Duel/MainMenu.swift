@@ -10,8 +10,11 @@ import SpriteKit
 
 class MainMenu: SKScene {
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        let game:BrickBreaker = BrickBreaker(fileNamed: "BrickBreaker")!
-        self.view?.presentScene(game)
+        let game:Bricks = Bricks(fileNamed: "Bricks")!
+        game.scaleMode = .AspectFill
+        let Transition:SKTransition = SKTransition.doorwayWithDuration(3)
+
+        self.view?.presentScene(game, transition: Transition)
         
         // Simon comment
         

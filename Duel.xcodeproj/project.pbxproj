@@ -16,8 +16,8 @@
 		2323825C1D40B65400780598 /* DuelUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2323825B1D40B65400780598 /* DuelUITests.swift */; };
 		2323826A1D40B70800780598 /* MainMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = 232382691D40B70800780598 /* MainMenu.sks */; };
 		2323826C1D40B71C00780598 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2323826B1D40B71C00780598 /* MainMenu.swift */; };
-		2323826E1D40B83500780598 /* BrickBreaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2323826D1D40B83500780598 /* BrickBreaker.swift */; };
-		232382701D40B84900780598 /* BrickBreaker.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2323826F1D40B84900780598 /* BrickBreaker.sks */; };
+		23FA283D1D474009006CDC20 /* Bricks.sks in Resources */ = {isa = PBXBuildFile; fileRef = 23FA283C1D474009006CDC20 /* Bricks.sks */; };
+		23FA283F1D47402C006CDC20 /* Bricks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FA283E1D47402C006CDC20 /* Bricks.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,8 +53,8 @@
 		2323825D1D40B65400780598 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		232382691D40B70800780598 /* MainMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MainMenu.sks; sourceTree = "<group>"; };
 		2323826B1D40B71C00780598 /* MainMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
-		2323826D1D40B83500780598 /* BrickBreaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrickBreaker.swift; sourceTree = "<group>"; };
-		2323826F1D40B84900780598 /* BrickBreaker.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = BrickBreaker.sks; sourceTree = "<group>"; };
+		23FA283C1D474009006CDC20 /* Bricks.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Bricks.sks; sourceTree = "<group>"; };
+		23FA283E1D47402C006CDC20 /* Bricks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bricks.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,8 +109,8 @@
 				2323823D1D40B65400780598 /* GameViewController.swift */,
 				232382691D40B70800780598 /* MainMenu.sks */,
 				2323826B1D40B71C00780598 /* MainMenu.swift */,
-				2323826F1D40B84900780598 /* BrickBreaker.sks */,
-				2323826D1D40B83500780598 /* BrickBreaker.swift */,
+				23FA283C1D474009006CDC20 /* Bricks.sks */,
+				23FA283E1D47402C006CDC20 /* Bricks.swift */,
 				2323823F1D40B65400780598 /* Main.storyboard */,
 				232382421D40B65400780598 /* Assets.xcassets */,
 				232382441D40B65400780598 /* LaunchScreen.storyboard */,
@@ -242,8 +242,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				232382461D40B65400780598 /* LaunchScreen.storyboard in Resources */,
-				232382701D40B84900780598 /* BrickBreaker.sks in Resources */,
 				232382431D40B65400780598 /* Assets.xcassets in Resources */,
+				23FA283D1D474009006CDC20 /* Bricks.sks in Resources */,
 				2323826A1D40B70800780598 /* MainMenu.sks in Resources */,
 				232382411D40B65400780598 /* Main.storyboard in Resources */,
 			);
@@ -270,7 +270,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2323826E1D40B83500780598 /* BrickBreaker.swift in Sources */,
+				23FA283F1D47402C006CDC20 /* Bricks.swift in Sources */,
 				2323823E1D40B65400780598 /* GameViewController.swift in Sources */,
 				232382381D40B65400780598 /* AppDelegate.swift in Sources */,
 				2323826C1D40B71C00780598 /* MainMenu.swift in Sources */,
@@ -500,6 +500,7 @@
 				232382621D40B65400780598 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		232382631D40B65400780598 /* Build configuration list for PBXNativeTarget "DuelTests" */ = {
 			isa = XCConfigurationList;
@@ -508,6 +509,7 @@
 				232382651D40B65400780598 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		232382661D40B65400780598 /* Build configuration list for PBXNativeTarget "DuelUITests" */ = {
 			isa = XCConfigurationList;
@@ -516,6 +518,7 @@
 				232382681D40B65400780598 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
