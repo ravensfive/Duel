@@ -32,6 +32,7 @@ class Bricks: SKScene {
     
     override func update(currentTime: CFTimeInterval) {
         Paddle.position.x = TouchLocation.x
+        // golf
     }
     
 }
