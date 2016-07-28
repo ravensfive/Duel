@@ -12,7 +12,7 @@ class MainMenu: SKScene {
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         let game:Bricks = Bricks(fileNamed: "Bricks")!
         game.scaleMode = .AspectFill
-        let Transition:SKTransition = SKTransition.doorwayWithDuration(3)
+        let Transition:SKTransition = SKTransition.doorwayWithDuration(0.1)
 
         self.view?.presentScene(game, transition: Transition)
         
