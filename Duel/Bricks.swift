@@ -13,10 +13,7 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
     
     //intialise variables and objects
     var isFingerOnPaddle = false
-    var Ball:SKSpriteNode!
     var Paddle:SKSpriteNode!
-    var Brick_1:SKSpriteNode!
-    var Brick_2:SKSpriteNode!
     var TouchLocation:CGPoint = CGPointZero
     
     //didmovetoview function, called when view loads
@@ -38,29 +35,87 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
         addChild(bottom)
         
         //allocate objects to initialised objects
-        Ball = self.childNodeWithName("Ball") as! SKSpriteNode
         Paddle = self.childNodeWithName("Paddle") as! SKSpriteNode
-        Brick_1 = self.childNodeWithName("Brick_1") as! SKSpriteNode
-        Brick_2 = self.childNodeWithName("Brick_2") as! SKSpriteNode
         
         //set initial physics of gamescene
         self.physicsWorld.contactDelegate = self
         
-        //set intial physics of ball
-        Ball.physicsBody?.friction = 0
-        Ball.physicsBody?.restitution = 1
-        Ball.physicsBody?.linearDamping = 0
-        Ball.physicsBody?.angularDamping = 0
-        
         //apply intialised physics categories to their objects
-        Ball.physicsBody!.categoryBitMask = BallCategory
-        Brick_1.physicsBody!.categoryBitMask = BrickCategory
-        Brick_2.physicsBody!.categoryBitMask = BrickCategory
+        
         bottom.physicsBody!.categoryBitMask = BottomCategory
+
+        //add ball to the game scene
+        addBall(CGPoint(x: 100,y: 100))
+        addBall(CGPoint(x: 150,y: 150))
+        addBall(CGPoint(x: 200,y: 200))
+        addBall(CGPoint(x: 250,y: 250))
+        
+        //add bricks to game scene
+        addBlocks(8)
+    }
+    
+    func addBall(Location:CGPoint) {
+        
+        //define new sk sprite node with Ball.png as a base
+        let ball = SKSpriteNode(imageNamed: "Ball.png")
+        //set location to the passed CGPoint
+        ball.position = Location
+        //set up physics body around image
+        ball.physicsBody = SKPhysicsBody(circleOfRadius: ball.frame.width/2)
+        //set intial physics of ball
+        ball.physicsBody!.mass = 0.34
+        ball.physicsBody!.dynamic = true
+        ball.physicsBody!.affectedByGravity = true
+        ball.physicsBody!.friction = 0.0
+        ball.physicsBody!.restitution = 0.0
+        ball.physicsBody!.linearDamping = 0.0
+        ball.physicsBody!.angularDamping = 0.0
+        ball.size.width = 100
+        ball.size.height = 100
+        
+        //apply ball category to category mask of the object
+        ball.physicsBody!.categoryBitMask = BallCategory
         
         //apply contact physics to the ball when it collides with.....
-        Ball.physicsBody!.contactTestBitMask = BrickCategory|BottomCategory
+        ball.physicsBody!.contactTestBitMask = BrickCategory|BottomCategory
         
+        //add object to game scene
+        addChild(ball)
+        
+        //apply initial impulse
+        ball.physicsBody!.applyImpulse(CGVector(dx: 250, dy: 500))
+    }
+
+    //custom function, adds the number of blocks passed to the game
+    func addBlocks(NoofBlocks: UInt32) {
+        
+        //establish width of brick image
+        let blockWidth = SKSpriteNode(imageNamed: "Brick").size.width
+        
+        //establish total block width, no of blocks time block width
+        let totalBlocksWidth = blockWidth * CGFloat(NoofBlocks)
+        
+        //establish x offset, width of frame - total block width divided by 2
+        let xOffset = (CGRectGetWidth(frame) - totalBlocksWidth) / 2
+        
+        //loop through 1 to no of blocks
+        for i in 0..<NoofBlocks {
+            
+                //define new sk sprite node for the brick using the image as a base
+                let brick = SKSpriteNode(imageNamed: "Brick.png")
+                //set the brick position
+                brick.position = CGPoint(x: xOffset + CGFloat(CGFloat(i) + 0.5) * blockWidth, y: CGRectGetHeight(frame)*0.8)
+                brick.physicsBody = SKPhysicsBody(rectangleOfSize: brick.frame.size)
+                brick.physicsBody!.allowsRotation = false
+                brick.physicsBody!.friction = 0.0
+                brick.physicsBody!.affectedByGravity = false
+                brick.physicsBody!.dynamic = false
+                brick.name = "Brick"
+                brick.physicsBody!.categoryBitMask = BrickCategory
+                brick.zPosition = 2
+                addChild(brick)
+        }
+       
     }
     
     //touches began class, called when user first touches the screen anywhere
@@ -81,14 +136,14 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
             }
             
             //if the user has touched the ball then....
-            if body.node!.name == "Ball" {
+//            else if body.node!.name == "Ball" {
+//            
+//                //if the ball is currently not moving, then apply impulse to ball
+//                //if ball.physicsBody!.velocity.dx == 0.0 || ball.physicsBody!.velocity.dy == 0.0 {
+//                //
+//                }
             
-                //if the ball is currently not moving, then apply impulse to ball
-                if Ball.physicsBody!.velocity.dx == 0.0 || Ball.physicsBody!.velocity.dy == 0.0 {
-                        Ball.physicsBody?.applyImpulse(CGVector(dx: 100, dy: 250))
-                }
-                
-            }
+            //}
         }
         
     }

@@ -10,20 +10,19 @@ import SpriteKit
 
 class MainMenu: SKScene {
     
-    var areyoureadylabel:SKLabelNode!
+    //var areyoureadylabel:SKLabelNode!
     
     override func didMoveToView(view: SKView) {
             print("Moved to main menu")
         
+        let areyoureadylabel = SKLabelNode(text: "Test")
         
-        areyoureadylabel = SKLabelNode(fontNamed: "Arial")
-        
-        areyoureadylabel.text = "Test - Test - Test - Test"
-        areyoureadylabel.fontSize = 200
-        areyoureadylabel.fontColor = SKColor(red: 150, green: 150, blue: 150, alpha: 150)
+        areyoureadylabel.fontSize = 100
+        areyoureadylabel.fontColor = SKColor.blackColor()
         areyoureadylabel.hidden = false
+        areyoureadylabel.position = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
         self.addChild(areyoureadylabel)
-        //test
+        
     }
     
     //touches began class, called when user touches the main menu screen
@@ -40,7 +39,6 @@ class MainMenu: SKScene {
         
         //load game scene
         self.view?.presentScene(game, transition: Transition)
-        
         
     }
 
