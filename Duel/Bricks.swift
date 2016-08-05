@@ -13,11 +13,35 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
     
     //intialise variables and objects
     var isFingerOnPaddle = false
-    var Paddle:SKSpriteNode!
     var TouchLocation:CGPoint = CGPointZero
     
     //didmovetoview function, called when view loads
     override func didMoveToView(view: SKView) {
+        
+        //set initial physics of gamescene
+        self.physicsWorld.contactDelegate = self
+        
+        //add borders around frame and apply physics to bottom
+        addBorders()
+
+        //add ball to the game scene
+        addBall(CGPoint(x: 100,y: 100), BallColor:SKColor.blueColor())
+        addBall(CGPoint(x: 150,y: 150), BallColor:SKColor.redColor())
+        
+        //add bricks to game scene
+        addBlocks(8,yPosition: 0.95)
+        addBlocks(8,yPosition: 0.90)
+        addBlocks(6,yPosition: 0.85)
+        addBlocks(6,yPosition: 0.80)
+        addBlocks(4,yPosition: 0.75)
+        addBlocks(4,yPosition: 0.70)
+        
+        //add paddle to game scene
+        addPaddle()
+    }
+    
+    //custom class to add borders to game scene
+    func addBorders() {
         
         //set up frame around full game scene
         let borderBody = SKPhysicsBody(edgeLoopFromRect: self.frame)
@@ -34,31 +58,21 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
         //add bottom line to the scene
         addChild(bottom)
         
-        //allocate objects to initialised objects
-        Paddle = self.childNodeWithName("Paddle") as! SKSpriteNode
-        
-        //set initial physics of gamescene
-        self.physicsWorld.contactDelegate = self
-        
         //apply intialised physics categories to their objects
         bottom.physicsBody!.categoryBitMask = BottomCategory
-
-        //add ball to the game scene
-        addBall(CGPoint(x: 100,y: 100), BallColor:SKColor.blueColor())
-        addBall(CGPoint(x: 150,y: 150), BallColor:SKColor.redColor())
-        
-        //add bricks to game scene
-        addBlocks(8,yPosition: 0.95)
-        addBlocks(8,yPosition: 0.90)
-        addBlocks(6,yPosition: 0.85)
-        addBlocks(6,yPosition: 0.80)
-        addBlocks(4,yPosition: 0.75)
-        addBlocks(4,yPosition: 0.70)
-        
-        //add paddle to game scene
-        
         
     }
+    
+    //custom class to add paddle
+    func addPaddle() {
+        
+        let paddle = SKShapeNode(rectOfSize: CGSize(width: 305, height: 75), cornerRadius: 20)
+        paddle.fillColor = SKColor.brownColor()
+        paddle.position = CGPoint(x: 540, y: 63)
+        paddle.name = "paddle"
+        addChild(paddle)
+    }
+    
     
     //custom function, adds a ball at the cordinates passed through
     func addBall(Location:CGPoint, BallColor:SKColor) {
@@ -137,7 +151,7 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
         if let body = physicsWorld.bodyAtPoint(touchlocation){
             
             //if the user has touched the paddle then....
-            if body.node!.name == "Paddle" {
+            if body.node!.name == "paddle" {
                 
                 //set the isFingerOnPaddle variable to true
                 isFingerOnPaddle = true
@@ -197,7 +211,7 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
     
     //update class, also used in moving the paddle
     override func update(currentTime: CFTimeInterval) {
-        Paddle.position.x = TouchLocation.x
+        //Paddle.position.x = TouchLocation.x
     }
     
     //did begin contact class, called when ball hits an object with a different category mask
