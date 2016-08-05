@@ -41,37 +41,44 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
         self.physicsWorld.contactDelegate = self
         
         //apply intialised physics categories to their objects
-        
         bottom.physicsBody!.categoryBitMask = BottomCategory
 
         //add ball to the game scene
-        addBall(CGPoint(x: 100,y: 100))
-        addBall(CGPoint(x: 150,y: 150))
-        addBall(CGPoint(x: 200,y: 200))
-        addBall(CGPoint(x: 250,y: 250))
+        addBall(CGPoint(x: 100,y: 100), BallColor:SKColor.blueColor())
+        addBall(CGPoint(x: 150,y: 150), BallColor:SKColor.redColor())
         
         //add bricks to game scene
-        addBlocks(8)
+        addBlocks(8,yPosition: 0.95)
+        addBlocks(8,yPosition: 0.90)
+        addBlocks(6,yPosition: 0.85)
+        addBlocks(6,yPosition: 0.80)
+        addBlocks(4,yPosition: 0.75)
+        addBlocks(4,yPosition: 0.70)
+        
+        //add paddle to game scene
+        
+        
     }
     
-    func addBall(Location:CGPoint) {
+    //custom function, adds a ball at the cordinates passed through
+    func addBall(Location:CGPoint, BallColor:SKColor) {
         
         //define new sk sprite node with Ball.png as a base
-        let ball = SKSpriteNode(imageNamed: "Ball.png")
+        let ball = SKShapeNode(circleOfRadius: 25)
+        ball.fillColor = BallColor
+        
         //set location to the passed CGPoint
         ball.position = Location
         //set up physics body around image
-        ball.physicsBody = SKPhysicsBody(circleOfRadius: ball.frame.width/2)
+        ball.physicsBody = SKPhysicsBody(circleOfRadius: 25)
         //set intial physics of ball
         ball.physicsBody!.mass = 0.34
         ball.physicsBody!.dynamic = true
         ball.physicsBody!.affectedByGravity = true
         ball.physicsBody!.friction = 0.0
-        ball.physicsBody!.restitution = 0.0
+        ball.physicsBody!.restitution = 1
         ball.physicsBody!.linearDamping = 0.0
         ball.physicsBody!.angularDamping = 0.0
-        ball.size.width = 100
-        ball.size.height = 100
         
         //apply ball category to category mask of the object
         ball.physicsBody!.categoryBitMask = BallCategory
@@ -83,14 +90,14 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
         addChild(ball)
         
         //apply initial impulse
-        ball.physicsBody!.applyImpulse(CGVector(dx: 250, dy: 500))
+        ball.physicsBody!.applyImpulse(CGVector(dx: 100, dy: 100))
     }
 
     //custom function, adds the number of blocks passed to the game
-    func addBlocks(NoofBlocks: UInt32) {
+    func addBlocks(NoofBlocks: UInt32, yPosition: CGFloat) {
         
         //establish width of brick image
-        let blockWidth = SKSpriteNode(imageNamed: "Brick").size.width
+        let blockWidth = self.size.width / CGFloat(NoofBlocks)
         
         //establish total block width, no of blocks time block width
         let totalBlocksWidth = blockWidth * CGFloat(NoofBlocks)
@@ -102,9 +109,10 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
         for i in 0..<NoofBlocks {
             
                 //define new sk sprite node for the brick using the image as a base
-                let brick = SKSpriteNode(imageNamed: "Brick.png")
+            let brick = SKShapeNode(rectOfSize: CGSize(width: blockWidth, height: 100))
                 //set the brick position
-                brick.position = CGPoint(x: xOffset + CGFloat(CGFloat(i) + 0.5) * blockWidth, y: CGRectGetHeight(frame)*0.8)
+                brick.position = CGPoint(x: xOffset + CGFloat(CGFloat(i) + 0.5) * blockWidth, y: CGRectGetHeight(frame)*yPosition)
+                brick.fillColor = SKColor.darkGrayColor()
                 brick.physicsBody = SKPhysicsBody(rectangleOfSize: brick.frame.size)
                 brick.physicsBody!.allowsRotation = false
                 brick.physicsBody!.friction = 0.0
@@ -205,7 +213,10 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
         }
         //test if bodyA is the bottom border of the screen, if it is then....
         else if contact.bodyA.categoryBitMask == BottomCategory {
-        //print ("Hit bottom")
+            
+        addBall(CGPoint(x: 100,y: 100), BallColor:SKColor.blueColor())
+        addBall(CGPoint(x: 150,y: 150), BallColor:SKColor.redColor())
+    
         }
         
     }

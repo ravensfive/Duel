@@ -8,20 +8,22 @@
 
 import SpriteKit
 
-class MainMenu: SKScene {
-    
-    //var areyoureadylabel:SKLabelNode!
+class MainMenu: SKScene, SKPhysicsContactDelegate {
     
     override func didMoveToView(view: SKView) {
-            print("Moved to main menu")
+    
+        let DUlabel = SKLabelNode(fontNamed: "Helvetica Neue UltraLight")
+    
+        DUlabel.physicsBody = SKPhysicsBody(edgeLoopFromRect: DUlabel.frame)
         
-        let areyoureadylabel = SKLabelNode(text: "Test")
+        DUlabel.physicsBody!.affectedByGravity = true
         
-        areyoureadylabel.fontSize = 100
-        areyoureadylabel.fontColor = SKColor.blackColor()
-        areyoureadylabel.hidden = false
-        areyoureadylabel.position = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
-        self.addChild(areyoureadylabel)
+        DUlabel.text = "Duel"
+        DUlabel.fontSize = 300
+        DUlabel.fontColor = SKColor.blueColor()
+        DUlabel.hidden = false
+        DUlabel.position = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
+        self.addChild(DUlabel)
         
     }
     
