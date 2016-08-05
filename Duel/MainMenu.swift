@@ -23,7 +23,7 @@ class MainMenu: SKScene {
         areyoureadylabel.fontColor = SKColor(red: 150, green: 150, blue: 150, alpha: 150)
         areyoureadylabel.hidden = false
         self.addChild(areyoureadylabel)
-        
+        //test
     }
     
     //touches began class, called when user touches the main menu screen
