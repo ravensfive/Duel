@@ -7,6 +7,12 @@ import SpriteKit
 let BallCategory:UInt32 = 0x1 << 0 // 1
 let BrickCategory:UInt32 = 0x1 << 1 // 2
 let BottomCategory:UInt32 = 0x1 << 2 // 4
+let PaddleCategory:UInt32 = 0x1 << 3 // 8
+
+let paddle = SKShapeNode(rectOfSize: CGSize(width: 305, height: 75), cornerRadius: 20)
+//let ball = SKShapeNode(circleOfRadius: 25)
+
+
 
 //main class
 class Bricks: SKScene, SKPhysicsContactDelegate {
@@ -26,7 +32,7 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
 
         //add ball to the game scene
         addBall(CGPoint(x: 100,y: 100), BallColor:SKColor.blueColor())
-        addBall(CGPoint(x: 150,y: 150), BallColor:SKColor.redColor())
+        //addBall(CGPoint(x: 150,y: 150), BallColor:SKColor.redColor())
         
         //add bricks to game scene
         addBlocks(8,yPosition: 0.95)
@@ -38,6 +44,8 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
         
         //add paddle to game scene
         addPaddle()
+    
+        
     }
     
     //custom class to add borders to game scene
@@ -66,10 +74,14 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
     //custom class to add paddle
     func addPaddle() {
         
-        let paddle = SKShapeNode(rectOfSize: CGSize(width: 305, height: 75), cornerRadius: 20)
+        //let paddle = SKShapeNode(rectOfSize: CGSize(width: 305, height: 75), cornerRadius: 20)
         paddle.fillColor = SKColor.brownColor()
         paddle.position = CGPoint(x: 540, y: 63)
         paddle.name = "paddle"
+        paddle.physicsBody = SKPhysicsBody(rectangleOfSize: paddle.frame.size)
+        paddle.physicsBody?.categoryBitMask = PaddleCategory
+        paddle.physicsBody!.affectedByGravity = false
+        paddle.physicsBody!.dynamic = false
         addChild(paddle)
     }
     
@@ -104,7 +116,7 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
         addChild(ball)
         
         //apply initial impulse
-        ball.physicsBody!.applyImpulse(CGVector(dx: 100, dy: 100))
+        ball.physicsBody!.applyImpulse(CGVector(dx: 300, dy: 300))
     }
 
     //custom function, adds the number of blocks passed to the game
@@ -174,20 +186,22 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
         
         // check if finger is on the paddle node, set in touches began class
         if isFingerOnPaddle {
+            print(isFingerOnPaddle)
             
             //this code moves the paddle, but we don't know why yet
             TouchLocation = touches.first!.locationInNode(self)
+            print(TouchLocation)
             
             //Set up touch and touch location as variables
-//            let touch = touches.first
-//            let touchlocation = touch!.locationInNode(self)
+            let touch = touches.first
+            let touchlocation = touch!.locationInNode(self)
 //            
 //            //Set up previous location and identify paddle object
-//            let previousLocation = touch!.previousLocationInNode(self)
-//            let paddle = childNodeWithName("Paddle") as! SKSpriteNode
+            let previousLocation = touch!.previousLocationInNode(self)
+            //let paddle = childNodeWithName("paddle") as! SKShapeNode
 //            
 //            
-//            var paddlex = paddle.position.x + (touchlocation.x - previousLocation.x)
+            let paddlex = paddle.position.x + (touchlocation.x - previousLocation.x)
 //            print ("0", paddlex)
 //            
 //            paddlex = max(paddlex, paddle.size.width / 2)
@@ -195,7 +209,9 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
 //            paddlex = min(paddlex, size.width - paddle.size.width / 2)
 //            print ("2", paddlex)
 //            
-//            paddle.position = CGPoint(x: paddlex, y: paddle.position.y)
+            paddle.position = CGPoint(x: paddlex, y: paddle.position.y)
+            
+            //paddle.position = CGPoint(x: 100, y: 50)
             //print(paddle.position)
         }
         
@@ -206,6 +222,7 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
         
         //set isFingerOnPaddle variable to false
         isFingerOnPaddle = false
+        print (isFingerOnPaddle)
         
     }
     
@@ -228,8 +245,8 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
         //test if bodyA is the bottom border of the screen, if it is then....
         else if contact.bodyA.categoryBitMask == BottomCategory {
             
-        addBall(CGPoint(x: 100,y: 100), BallColor:SKColor.blueColor())
-        addBall(CGPoint(x: 150,y: 150), BallColor:SKColor.redColor())
+        //addBall(CGPoint(x: 100,y: 100), BallColor:SKColor.blueColor())
+        //addBall(CGPoint(x: 150,y: 150), BallColor:SKColor.redColor())
     
         }
         
