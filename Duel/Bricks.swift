@@ -9,10 +9,9 @@ let BrickCategory:UInt32 = 0x1 << 1 // 2
 let BottomCategory:UInt32 = 0x1 << 2 // 4
 let PaddleCategory:UInt32 = 0x1 << 3 // 8
 
-let paddle = SKShapeNode(rectOfSize: CGSize(width: 305, height: 75), cornerRadius: 20)
-//let ball = SKShapeNode(circleOfRadius: 25)
-
-
+let paddle = SKSpriteNode(imageNamed: "Paddle")
+//let paddle = SKShapeNode(rectOfSize: CGSize(width: 305, height: 75), cornerRadius: 20)
+let ball = SKShapeNode(circleOfRadius: 25)
 
 //main class
 class Bricks: SKScene, SKPhysicsContactDelegate {
@@ -44,7 +43,6 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
         
         //add paddle to game scene
         addPaddle()
-    
         
     }
     
@@ -75,7 +73,7 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
     func addPaddle() {
         
         //let paddle = SKShapeNode(rectOfSize: CGSize(width: 305, height: 75), cornerRadius: 20)
-        paddle.fillColor = SKColor.brownColor()
+        //paddle.fillColor = SKColor.brownColor()
         paddle.position = CGPoint(x: 540, y: 63)
         paddle.name = "paddle"
         paddle.physicsBody = SKPhysicsBody(rectangleOfSize: paddle.frame.size)
@@ -90,7 +88,7 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
     func addBall(Location:CGPoint, BallColor:SKColor) {
         
         //define new sk sprite node with Ball.png as a base
-        let ball = SKShapeNode(circleOfRadius: 25)
+//        let ball = SKShapeNode(circleOfRadius: 25)
         ball.fillColor = BallColor
         
         //set location to the passed CGPoint
@@ -105,6 +103,7 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
         ball.physicsBody!.restitution = 1
         ball.physicsBody!.linearDamping = 0.0
         ball.physicsBody!.angularDamping = 0.0
+        ball.name = "ball"
         
         //apply ball category to category mask of the object
         ball.physicsBody!.categoryBitMask = BallCategory
@@ -115,8 +114,6 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
         //add object to game scene
         addChild(ball)
         
-        //apply initial impulse
-        ball.physicsBody!.applyImpulse(CGVector(dx: 300, dy: 300))
     }
 
     //custom function, adds the number of blocks passed to the game
@@ -159,6 +156,7 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
         let touch = touches.first
         let touchlocation = touch!.locationInNode(self)
         
+    
         //test if user has touched an object
         if let body = physicsWorld.bodyAtPoint(touchlocation){
             
@@ -170,14 +168,15 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
             }
             
             //if the user has touched the ball then....
-//            else if body.node!.name == "Ball" {
-//            
-//                //if the ball is currently not moving, then apply impulse to ball
-//                //if ball.physicsBody!.velocity.dx == 0.0 || ball.physicsBody!.velocity.dy == 0.0 {
-//                //
-//                }
+            else if body.node!.name == "ball" {
+
+                //if the ball is currently not moving, then apply impulse to ball
+                    if ball.physicsBody!.velocity.dx == 0.0 || ball.physicsBody!.velocity.dy == 0.0 {
+                        //apply initial impulse
+                        ball.physicsBody!.applyImpulse(CGVector(dx: 300, dy: 300))
+                }
             
-            //}
+            }
         }
         
     }
