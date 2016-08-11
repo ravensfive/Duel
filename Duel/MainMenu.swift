@@ -25,6 +25,8 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
         DUlabel.position = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
         self.addChild(DUlabel)
         
+        
+        
     }
     
     //touches began class, called when user touches the main menu screen

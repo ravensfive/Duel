@@ -16,6 +16,10 @@
 		2323825C1D40B65400780598 /* DuelUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2323825B1D40B65400780598 /* DuelUITests.swift */; };
 		2323826A1D40B70800780598 /* MainMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = 232382691D40B70800780598 /* MainMenu.sks */; };
 		2323826C1D40B71C00780598 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2323826B1D40B71C00780598 /* MainMenu.swift */; };
+		232912901D5C573D0091643C /* SwishTrimmed.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 2329128F1D5C573D0091643C /* SwishTrimmed.m4a */; };
+		2387F0691D5B13B700AD3112 /* GameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2387F0661D5B13B700AD3112 /* GameOver.swift */; };
+		2387F06A1D5B13B700AD3112 /* Playing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2387F0671D5B13B700AD3112 /* Playing.swift */; };
+		2387F06B1D5B13B700AD3112 /* WaitingForTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2387F0681D5B13B700AD3112 /* WaitingForTap.swift */; };
 		23FA283D1D474009006CDC20 /* Bricks.sks in Resources */ = {isa = PBXBuildFile; fileRef = 23FA283C1D474009006CDC20 /* Bricks.sks */; };
 		23FA283F1D47402C006CDC20 /* Bricks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FA283E1D47402C006CDC20 /* Bricks.swift */; };
 /* End PBXBuildFile section */
@@ -53,6 +57,10 @@
 		2323825D1D40B65400780598 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		232382691D40B70800780598 /* MainMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MainMenu.sks; sourceTree = "<group>"; };
 		2323826B1D40B71C00780598 /* MainMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
+		2329128F1D5C573D0091643C /* SwishTrimmed.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = SwishTrimmed.m4a; sourceTree = "<group>"; };
+		2387F0661D5B13B700AD3112 /* GameOver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameOver.swift; path = ../../../../.Trash/GameOver.swift; sourceTree = "<group>"; };
+		2387F0671D5B13B700AD3112 /* Playing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Playing.swift; path = ../../../../.Trash/Playing.swift; sourceTree = "<group>"; };
+		2387F0681D5B13B700AD3112 /* WaitingForTap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WaitingForTap.swift; path = ../../../../.Trash/WaitingForTap.swift; sourceTree = "<group>"; };
 		23FA283C1D474009006CDC20 /* Bricks.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Bricks.sks; sourceTree = "<group>"; };
 		23FA283E1D47402C006CDC20 /* Bricks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bricks.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -105,6 +113,9 @@
 		232382361D40B65400780598 /* Duel */ = {
 			isa = PBXGroup;
 			children = (
+				2329128C1D5C55ED0091643C /* Sounds */,
+				2329128F1D5C573D0091643C /* SwishTrimmed.m4a */,
+				2387F0651D5B135100AD3112 /* Game States */,
 				232382371D40B65400780598 /* AppDelegate.swift */,
 				2323823D1D40B65400780598 /* GameViewController.swift */,
 				232382691D40B70800780598 /* MainMenu.sks */,
@@ -135,6 +146,23 @@
 				2323825D1D40B65400780598 /* Info.plist */,
 			);
 			path = DuelUITests;
+			sourceTree = "<group>";
+		};
+		2329128C1D5C55ED0091643C /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Sounds;
+			sourceTree = "<group>";
+		};
+		2387F0651D5B135100AD3112 /* Game States */ = {
+			isa = PBXGroup;
+			children = (
+				2387F0661D5B13B700AD3112 /* GameOver.swift */,
+				2387F0671D5B13B700AD3112 /* Playing.swift */,
+				2387F0681D5B13B700AD3112 /* WaitingForTap.swift */,
+			);
+			name = "Game States";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -246,6 +274,7 @@
 				23FA283D1D474009006CDC20 /* Bricks.sks in Resources */,
 				2323826A1D40B70800780598 /* MainMenu.sks in Resources */,
 				232382411D40B65400780598 /* Main.storyboard in Resources */,
+				232912901D5C573D0091643C /* SwishTrimmed.m4a in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,9 +299,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2387F06A1D5B13B700AD3112 /* Playing.swift in Sources */,
 				23FA283F1D47402C006CDC20 /* Bricks.swift in Sources */,
 				2323823E1D40B65400780598 /* GameViewController.swift in Sources */,
+				2387F06B1D5B13B700AD3112 /* WaitingForTap.swift in Sources */,
 				232382381D40B65400780598 /* AppDelegate.swift in Sources */,
+				2387F0691D5B13B700AD3112 /* GameOver.swift in Sources */,
 				2323826C1D40B71C00780598 /* MainMenu.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

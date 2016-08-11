@@ -2,6 +2,7 @@
 
 //import spritekit
 import SpriteKit
+import GameplayKit
 
 //intialise physics categories for each spritenode
 let BallCategory:UInt32 = 0x1 << 0 // 1
@@ -20,11 +21,16 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
     var isFingerOnPaddle = false
     var TouchLocation:CGPoint = CGPointZero
     
+    lazy var gameState:GKStateMachine = GKStateMachine(states:[WaitingForTap(scene: self),Playing(scene:self),GameOver(scene:self)])
+    
+    
     //didmovetoview function, called when view loads
     override func didMoveToView(view: SKView) {
         
         //set initial physics of gamescene
         self.physicsWorld.contactDelegate = self
+        
+        gameState.enterState(WaitingForTap)
         
         //add borders around frame and apply physics to bottom
         addBorders()
@@ -76,7 +82,8 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
         //paddle.fillColor = SKColor.brownColor()
         paddle.position = CGPoint(x: 540, y: 63)
         paddle.name = "paddle"
-        paddle.physicsBody = SKPhysicsBody(rectangleOfSize: paddle.frame.size)
+        //paddle.physicsBody = SKPhysicsBody(rectangleOfSize: paddle.frame.size)
+        paddle.physicsBody = SKPhysicsBody(circleOfRadius: 150)
         paddle.physicsBody?.categoryBitMask = PaddleCategory
         paddle.physicsBody!.affectedByGravity = false
         paddle.physicsBody!.dynamic = false
@@ -88,7 +95,7 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
     func addBall(Location:CGPoint, BallColor:SKColor) {
         
         //define new sk sprite node with Ball.png as a base
-//        let ball = SKShapeNode(circleOfRadius: 25)
+        //let ball = SKShapeNode(circleOfRadius: 25)
         ball.fillColor = BallColor
         
         //set location to the passed CGPoint
@@ -103,6 +110,7 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
         ball.physicsBody!.restitution = 1
         ball.physicsBody!.linearDamping = 0.0
         ball.physicsBody!.angularDamping = 0.0
+        
         ball.name = "ball"
         
         //apply ball category to category mask of the object
@@ -113,7 +121,7 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
         
         //add object to game scene
         addChild(ball)
-        
+        //ball.physicsBody!.applyImpulse(CGVector(dx: 300, dy: 300))
     }
 
     //custom function, adds the number of blocks passed to the game
@@ -155,63 +163,62 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
         //declare touch and touch location
         let touch = touches.first
         let touchlocation = touch!.locationInNode(self)
+        let body = physicsWorld.bodyAtPoint(touchlocation)
         
-    
-        //test if user has touched an object
-        if let body = physicsWorld.bodyAtPoint(touchlocation){
-            
-            //if the user has touched the paddle then....
-            if body.node!.name == "paddle" {
+        //test current state and if in waiting for tap state then switch to playing
+        switch gameState.currentState {
+            case is WaitingForTap:
                 
-                //set the isFingerOnPaddle variable to true
-                isFingerOnPaddle = true
-            }
-            
-            //if the user has touched the ball then....
-            else if body.node!.name == "ball" {
-
-                //if the ball is currently not moving, then apply impulse to ball
-                    if ball.physicsBody!.velocity.dx == 0.0 || ball.physicsBody!.velocity.dy == 0.0 {
+                //test if the body touched is the ball
+                if body?.node!.name == "ball" {
+                    
+                    //Set game state to playing
+                    gameState.enterState(Playing)
+                    
                         //apply initial impulse
                         ball.physicsBody!.applyImpulse(CGVector(dx: 300, dy: 300))
                 }
             
-            }
+            case is Playing:
+    
+                 //if the user has touched the paddle then....
+                if body?.node!.name == "paddle" {
+                
+                //set the isFingerOnPaddle variable to true
+                isFingerOnPaddle = true
+                }
+            
+            case is GameOver:
+            let newscene = MainMenu(fileNamed: "MainMenu")
+            newscene!.scaleMode = .AspectFill
+            let reveal = SKTransition.flipHorizontalWithDuration(0.5)
+            self.view?.presentScene(newscene!, transition: reveal)
+            
+        default:break
         }
-        
     }
+    
     //touches moved class, called when the users moves once they have touched the screen anywhere
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
         // check if finger is on the paddle node, set in touches began class
         if isFingerOnPaddle {
-            print(isFingerOnPaddle)
+            //print(isFingerOnPaddle)
             
             //this code moves the paddle, but we don't know why yet
             TouchLocation = touches.first!.locationInNode(self)
-            print(TouchLocation)
+            //print(TouchLocation)
             
             //Set up touch and touch location as variables
             let touch = touches.first
             let touchlocation = touch!.locationInNode(self)
-//            
-//            //Set up previous location and identify paddle object
+            
+           //Set up previous location and identify paddle object
             let previousLocation = touch!.previousLocationInNode(self)
-            //let paddle = childNodeWithName("paddle") as! SKShapeNode
-//            
-//            
+            
             let paddlex = paddle.position.x + (touchlocation.x - previousLocation.x)
-//            print ("0", paddlex)
-//            
-//            paddlex = max(paddlex, paddle.size.width / 2)
-//            print ("1", paddlex)
-//            paddlex = min(paddlex, size.width - paddle.size.width / 2)
-//            print ("2", paddlex)
-//            
             paddle.position = CGPoint(x: paddlex, y: paddle.position.y)
             
-            //paddle.position = CGPoint(x: 100, y: 50)
-            //print(paddle.position)
         }
         
     }
@@ -221,7 +228,6 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
         
         //set isFingerOnPaddle variable to false
         isFingerOnPaddle = false
-        print (isFingerOnPaddle)
         
     }
     
@@ -239,10 +245,19 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
         //test if bodyA (the hit object) is a brick, if it is then....
         if contact.bodyA.categoryBitMask == BrickCategory {
                 //remove brick from gamescene
-                contact.bodyA.node!.removeFromParent()
+//            if contact.bodyA.node != nil {
+//            contact.bodyA.node!.removeFromParent()
+//            }
+            
+            // Testing if node exists and then removes if it does
+            contact.bodyA.node?.removeFromParent()
+            let action = SKAction.playSoundFileNamed("SwishTrimmed.m4a", waitForCompletion: false)
+            runAction(action)
         }
         //test if bodyA is the bottom border of the screen, if it is then....
         else if contact.bodyA.categoryBitMask == BottomCategory {
+            
+            gameState.enterState(GameOver)
             
         //addBall(CGPoint(x: 100,y: 100), BallColor:SKColor.blueColor())
         //addBall(CGPoint(x: 150,y: 150), BallColor:SKColor.redColor())
