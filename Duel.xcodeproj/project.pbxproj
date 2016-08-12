@@ -19,6 +19,7 @@
 		239174E41D5DB053003C991B /* Playing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239174E31D5DB053003C991B /* Playing.swift */; };
 		239174E71D5DB12C003C991B /* WaitingForTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239174E61D5DB12C003C991B /* WaitingForTap.swift */; };
 		239174E91D5DB19B003C991B /* GameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239174E81D5DB19B003C991B /* GameOver.swift */; };
+		239174EB1D5DB239003C991B /* SwishTrimmed.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 239174EA1D5DB239003C991B /* SwishTrimmed.m4a */; };
 		23FA283D1D474009006CDC20 /* Bricks.sks in Resources */ = {isa = PBXBuildFile; fileRef = 23FA283C1D474009006CDC20 /* Bricks.sks */; };
 		23FA283F1D47402C006CDC20 /* Bricks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FA283E1D47402C006CDC20 /* Bricks.swift */; };
 /* End PBXBuildFile section */
@@ -59,6 +60,7 @@
 		239174E31D5DB053003C991B /* Playing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Playing.swift; path = Duel/Playing.swift; sourceTree = "<group>"; };
 		239174E61D5DB12C003C991B /* WaitingForTap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WaitingForTap.swift; path = Duel/WaitingForTap.swift; sourceTree = "<group>"; };
 		239174E81D5DB19B003C991B /* GameOver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameOver.swift; path = Duel/GameOver.swift; sourceTree = "<group>"; };
+		239174EA1D5DB239003C991B /* SwishTrimmed.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = SwishTrimmed.m4a; sourceTree = "<group>"; };
 		23FA283C1D474009006CDC20 /* Bricks.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Bricks.sks; sourceTree = "<group>"; };
 		23FA283E1D47402C006CDC20 /* Bricks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bricks.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -118,6 +120,7 @@
 				2323826B1D40B71C00780598 /* MainMenu.swift */,
 				23FA283C1D474009006CDC20 /* Bricks.sks */,
 				23FA283E1D47402C006CDC20 /* Bricks.swift */,
+				239174EA1D5DB239003C991B /* SwishTrimmed.m4a */,
 				2323823F1D40B65400780598 /* Main.storyboard */,
 				232382421D40B65400780598 /* Assets.xcassets */,
 				232382441D40B65400780598 /* LaunchScreen.storyboard */,
@@ -263,6 +266,7 @@
 				232382431D40B65400780598 /* Assets.xcassets in Resources */,
 				23FA283D1D474009006CDC20 /* Bricks.sks in Resources */,
 				2323826A1D40B70800780598 /* MainMenu.sks in Resources */,
+				239174EB1D5DB239003C991B /* SwishTrimmed.m4a in Resources */,
 				232382411D40B65400780598 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
