@@ -120,7 +120,7 @@
 				2323826B1D40B71C00780598 /* MainMenu.swift */,
 				23FA283C1D474009006CDC20 /* Bricks.sks */,
 				23FA283E1D47402C006CDC20 /* Bricks.swift */,
-				239174EA1D5DB239003C991B /* SwishTrimmed.m4a */,
+				239174EC1D5DB26D003C991B /* Sounds */,
 				2323823F1D40B65400780598 /* Main.storyboard */,
 				232382421D40B65400780598 /* Assets.xcassets */,
 				232382441D40B65400780598 /* LaunchScreen.storyboard */,
@@ -156,6 +156,14 @@
 			);
 			name = GameStates;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		239174EC1D5DB26D003C991B /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				239174EA1D5DB239003C991B /* SwishTrimmed.m4a */,
+			);
+			name = Sounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
