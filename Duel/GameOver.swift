@@ -18,11 +18,12 @@ class GameOver: GKState {
     }
     
     override func didEnterWithPreviousState(previousState: GKState?) {
-//        if previousState is Playing {
-//            let ball = scene.childNodeWithName(BallCategoryName) as! SKSpriteNode
-//            ball.physicsBody!.linearDamping = 1.0
-//            scene.physicsWorld.gravity = CGVectorMake(0, -9.8)
-//        }
+        if previousState is Playing {
+            let ball = scene.childNodeWithName("ball") as! SKShapeNode
+            let paddle = scene.childNodeWithName("paddle") as! SKSpriteNode
+            ball.removeFromParent()
+            paddle.removeFromParent()
+        }
     }
     
     override func isValidNextState(stateClass: AnyClass) -> Bool {

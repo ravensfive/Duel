@@ -10,10 +10,6 @@ let BrickCategory:UInt32 = 0x1 << 1 // 2
 let BottomCategory:UInt32 = 0x1 << 2 // 4
 let PaddleCategory:UInt32 = 0x1 << 3 // 8
 
-let paddle = SKSpriteNode(imageNamed: "Paddle")
-//let paddle = SKShapeNode(rectOfSize: CGSize(width: 305, height: 75), cornerRadius: 20)
-let ball = SKShapeNode(circleOfRadius: 25)
-
 //main class
 class Bricks: SKScene, SKPhysicsContactDelegate {
     
@@ -78,6 +74,7 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
     //custom class to add paddle
     func addPaddle() {
         
+        let paddle = SKSpriteNode(imageNamed: "Paddle")
         //let paddle = SKShapeNode(rectOfSize: CGSize(width: 305, height: 75), cornerRadius: 20)
         //paddle.fillColor = SKColor.brownColor()
         paddle.position = CGPoint(x: 540, y: 63)
@@ -95,7 +92,7 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
     func addBall(Location:CGPoint, BallColor:SKColor) {
         
         //define new sk sprite node with Ball.png as a base
-        //let ball = SKShapeNode(circleOfRadius: 25)
+        let ball = SKShapeNode(circleOfRadius: 25)
         ball.fillColor = BallColor
         
         //set location to the passed CGPoint
@@ -175,11 +172,6 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
                     //Set game state to playing
                     gameState.enterState(Playing)
                     
-                    let action = SKAction.playSoundFileNamed("Begin.aifc", waitForCompletion: false)
-                    runAction(action)
-                    
-                        //apply initial impulse
-                        ball.physicsBody!.applyImpulse(CGVector(dx: 300, dy: 300))
                 }
             
             case is Playing:
@@ -189,15 +181,18 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
                 
                 //set the isFingerOnPaddle variable to true
                 isFingerOnPaddle = true
+                    
                 }
             
             case is GameOver:
+                
             let newscene = MainMenu(fileNamed: "MainMenu")
             newscene!.scaleMode = .AspectFill
             let reveal = SKTransition.flipHorizontalWithDuration(0.5)
             self.view?.presentScene(newscene!, transition: reveal)
             
         default:break
+            
         }
     }
     
@@ -215,6 +210,7 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
             //Set up touch and touch location as variables
             let touch = touches.first
             let touchlocation = touch!.locationInNode(self)
+            let paddle = childNodeWithName("paddle") as! SKSpriteNode
             
            //Set up previous location and identify paddle object
             let previousLocation = touch!.previousLocationInNode(self)
