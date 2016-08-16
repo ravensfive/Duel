@@ -175,6 +175,9 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
                     //Set game state to playing
                     gameState.enterState(Playing)
                     
+                    let action = SKAction.playSoundFileNamed("Begin.aifc", waitForCompletion: false)
+                    runAction(action)
+                    
                         //apply initial impulse
                         ball.physicsBody!.applyImpulse(CGVector(dx: 300, dy: 300))
                 }

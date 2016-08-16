@@ -38,8 +38,11 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
         //set scene scale mode i.e. fill to screen
         game.scaleMode = .AspectFill
         
+        let action = SKAction.playSoundFileNamed("AreYouReady.aifc", waitForCompletion: true)
+        runAction(action)
+        
         //set transition between screens
-        let Transition:SKTransition = SKTransition.doorwayWithDuration(0.1)
+        let Transition:SKTransition = SKTransition.doorwayWithDuration(5)
         
         //load game scene
         self.view?.presentScene(game, transition: Transition)

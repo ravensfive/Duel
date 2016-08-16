@@ -22,6 +22,8 @@
 		239174EB1D5DB239003C991B /* SwishTrimmed.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 239174EA1D5DB239003C991B /* SwishTrimmed.m4a */; };
 		23FA283D1D474009006CDC20 /* Bricks.sks in Resources */ = {isa = PBXBuildFile; fileRef = 23FA283C1D474009006CDC20 /* Bricks.sks */; };
 		23FA283F1D47402C006CDC20 /* Bricks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FA283E1D47402C006CDC20 /* Bricks.swift */; };
+		E10C85CC1D62D3B1006753AE /* AreYouReady.aifc in Resources */ = {isa = PBXBuildFile; fileRef = E10C85CB1D62D3B1006753AE /* AreYouReady.aifc */; };
+		E10C85CE1D62D5A7006753AE /* Begin.aifc in Resources */ = {isa = PBXBuildFile; fileRef = E10C85CD1D62D5A7006753AE /* Begin.aifc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +65,8 @@
 		239174EA1D5DB239003C991B /* SwishTrimmed.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = SwishTrimmed.m4a; sourceTree = "<group>"; };
 		23FA283C1D474009006CDC20 /* Bricks.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Bricks.sks; sourceTree = "<group>"; };
 		23FA283E1D47402C006CDC20 /* Bricks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bricks.swift; sourceTree = "<group>"; };
+		E10C85CB1D62D3B1006753AE /* AreYouReady.aifc */ = {isa = PBXFileReference; lastKnownFileType = file; path = AreYouReady.aifc; sourceTree = "<group>"; };
+		E10C85CD1D62D5A7006753AE /* Begin.aifc */ = {isa = PBXFileReference; lastKnownFileType = file; path = Begin.aifc; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +165,8 @@
 		239174EC1D5DB26D003C991B /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				E10C85CB1D62D3B1006753AE /* AreYouReady.aifc */,
+				E10C85CD1D62D5A7006753AE /* Begin.aifc */,
 				239174EA1D5DB239003C991B /* SwishTrimmed.m4a */,
 			);
 			name = Sounds;
@@ -270,9 +276,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E10C85CE1D62D5A7006753AE /* Begin.aifc in Resources */,
 				232382461D40B65400780598 /* LaunchScreen.storyboard in Resources */,
 				232382431D40B65400780598 /* Assets.xcassets in Resources */,
 				23FA283D1D474009006CDC20 /* Bricks.sks in Resources */,
+				E10C85CC1D62D3B1006753AE /* AreYouReady.aifc in Resources */,
 				2323826A1D40B70800780598 /* MainMenu.sks in Resources */,
 				239174EB1D5DB239003C991B /* SwishTrimmed.m4a in Resources */,
 				232382411D40B65400780598 /* Main.storyboard in Resources */,
