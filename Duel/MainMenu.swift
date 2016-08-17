@@ -119,7 +119,6 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
     
         }
         
-        
         else if contact.bodyA.categoryBitMask == BorderCategory {
             
             if contact.bodyB.node!.name == "DU" {
