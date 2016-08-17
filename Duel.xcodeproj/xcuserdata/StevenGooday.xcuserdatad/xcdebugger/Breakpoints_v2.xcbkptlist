@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Duel/MainMenu.swift"
-            timestampString = "493112961.693583"
+            timestampString = "493148296.038933"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "204"
-            endingLineNumber = "204"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
             landmarkName = "didBeginContact(_:)"
             landmarkType = "5">
          </BreakpointContent>
