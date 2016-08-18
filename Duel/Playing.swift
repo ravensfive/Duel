@@ -20,8 +20,7 @@ class Playing: GKState {
     override func didEnterWithPreviousState(previousState: GKState?) {
         if previousState is WaitingForTap {
             
-            let action = SKAction.playSoundFileNamed("Begin.aifc", waitForCompletion: false)
-            scene.runAction(action)
+        
             
             let ball = scene.childNodeWithName("ball") as! SKShapeNode
             ball.physicsBody!.applyImpulse(CGVector(dx: 300, dy: 300))

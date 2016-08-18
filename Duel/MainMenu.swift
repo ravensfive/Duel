@@ -30,17 +30,18 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
     //touches began class, called when user touches the main menu screen
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
+        let beginaction = SKAction.playSoundFileNamed("Begin.aifc", waitForCompletion: false)
+        runAction(beginaction)
+        
         //controlling which game to navigate to
         let game:Bricks = Bricks(fileNamed: "Bricks")!
         
         //set scene scale mode i.e. fill to screen
         game.scaleMode = .AspectFill
-        
-        let action = SKAction.playSoundFileNamed("AreYouReady.aifc", waitForCompletion: true)
-        runAction(action)
+    
         
         //set transition between screens
-        let Transition:SKTransition = SKTransition.doorwayWithDuration(5)
+        let Transition:SKTransition = SKTransition.doorwayWithDuration(3)
         
         //load game scene
         self.view?.presentScene(game, transition: Transition)
@@ -86,14 +87,19 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
         //add to scene
         self.addChild(ELlabel)
         
-        let action1 = SKAction.moveBy(CGVector(dx:0,dy: -250), duration: 0.5)
+        let soundaction = SKAction.playSoundFileNamed("AreYouReady.aifc", waitForCompletion: false)
+        runAction(soundaction)
+        
+        let action1 = SKAction.moveBy(CGVector(dx:0,dy: -600), duration: 2)
         let action2 = SKAction.applyImpulse(CGVector(dx: 500,dy: 0), duration: 2)
         let action3 = SKAction.applyImpulse(CGVector(dx: -500,dy: 0), duration: 2)
         let actionwait = SKAction.waitForDuration(0.5)
-        let sequence1 = SKAction.sequence([action1,actionwait, action2])
+        let sequence1 = SKAction.sequence([soundaction, action1,actionwait, action2])
         let sequence2 = SKAction.sequence([action1,actionwait, action3])
         DUlabel.runAction(sequence1)
         ELlabel.runAction(sequence2)
+        
+   
         
     }
     
