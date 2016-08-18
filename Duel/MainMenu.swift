@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+import GameplayKit
 
 let DULabelCategory:UInt32 = 0x1 << 0 // 1
 let ELLabelCategory:UInt32 = 0x1 << 1 // 2
@@ -91,17 +92,58 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
         runAction(soundaction)
         
         let action1 = SKAction.moveBy(CGVector(dx:0,dy: -600), duration: 2)
-        let action2 = SKAction.applyImpulse(CGVector(dx: 500,dy: 0), duration: 2)
-        let action3 = SKAction.applyImpulse(CGVector(dx: -500,dy: 0), duration: 2)
-        let actionwait = SKAction.waitForDuration(0.5)
-        let sequence1 = SKAction.sequence([soundaction, action1,actionwait, action2])
-        let sequence2 = SKAction.sequence([action1,actionwait, action3])
-        DUlabel.runAction(sequence1)
-        ELlabel.runAction(sequence2)
+        let action2 = SKAction.applyImpulse(CGVector(dx: 1000,dy: 0), duration: 0.5)
+        let action3 = SKAction.applyImpulse(CGVector(dx: -1000,dy: 0), duration: 0.5)
+        let action4 = SKAction.applyImpulse(CGVector(dx: -1000,dy: 0), duration: 0.5)
+        let action5 = SKAction.applyImpulse(CGVector(dx: 1000,dy: 0), duration: 0.5)
+        let action6 = SKAction.moveTo(CGPoint(x: 340, y: 1100), duration: 0.1)
+        let action7 = SKAction.moveTo(CGPoint(x: 740, y: 1100), duration: 0.1)
+        let action8 = SKAction.rotateByAngle(1.571, duration: 1)
         
-   
+        //let actionwait = SKAction.waitForDuration(0.5)
+        let sequence1 = SKAction.sequence([soundaction, action1, action2, action4, action2, action4, action2, action4, action6])
+        let sequence2 = SKAction.sequence([action1, action3, action5, action3, action5,
+            action3, action5, action7])
         
+        DUlabel.runAction(sequence1, completion: {
+            DUlabel.physicsBody?.pinned = true
+            DUlabel.position = CGPoint(x: 420, y: 1100)
+            print ("moved label")
+            })
+        
+        ELlabel.runAction(sequence2, completion: {
+            ELlabel.physicsBody?.pinned = true
+            ELlabel.position = CGPoint(x: 680, y: 1100)
+            ELlabel.physicsBody?.allowsRotation = true
+            ELlabel.runAction(action8, completion: {
+                ELlabel.zRotation = 1.571
+            })
+            
+            
+        })
+        
+        
+            
+        //ELlabel.runAction(sequence2)
+        
+        
+        
+    
     }
+    
+//    func randomDirection() -> CGFloat {
+//        let speedFactor: CGFloat = 1.0
+//        if self.randomFloat(from: 500.00, to: 1000.0) >= 50 {
+//            return -speedFactor
+//        } else {
+//            return speedFactor
+//        }
+//    }
+//    
+//    func randomFloat(from from:CGFloat, to:CGFloat) -> CGFloat {
+//        let rand:CGFloat = CGFloat(Float(arc4random()) / 0xFFFFFFFF)
+//        return (rand) * (to - from) + from
+//    }
     
     //did begin contact class, called when ball hits an object with a different category mask
     func didBeginContact(contact: SKPhysicsContact) {
@@ -110,30 +152,30 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
         //bodyB is the object that has hit
         
         //test if bodyA (the hit object) is a brick, if it is then....
-            if contact.bodyA.categoryBitMask == DULabelCategory {
-            
-            let action1 = SKAction.applyImpulse(CGVector(dx: 250,dy: 0), duration: 0.5)
-            let action2 = SKAction.applyImpulse(CGVector(dx: -250,dy: 0), duration: 0.5)
-            let actionwait = SKAction.waitForDuration(0.0)
-            let action3 = SKAction.applyImpulse(CGVector(dx: 600,dy: 0), duration: 0.5)
-            let action4 = SKAction.applyImpulse(CGVector(dx: -600,dy: 0), duration: 0.5)
-            let sequence1 = SKAction.repeatAction(SKAction.sequence([action1,actionwait,action3]), count:10)
-            let sequence2 = SKAction.repeatAction(SKAction.sequence([action2,actionwait,action4]), count:10)
-        
-            contact.bodyB.node!.runAction(sequence2)
-            contact.bodyA.node!.runAction(sequence1)
-    
-        }
-        
-        else if contact.bodyA.categoryBitMask == BorderCategory {
-            
-            if contact.bodyB.node!.name == "DU" {
-                contact.bodyB.node!.runAction(SKAction.applyImpulse(CGVector(dx: 750,dy: 0), duration: 0.5))
-            }
-            else if contact.bodyB.node!.name == "EL" {
-                contact.bodyB.node!.runAction(SKAction.applyImpulse(CGVector(dx: -750,dy: 0), duration: 0.5))
-            }
-        }
-        
+//        if contact.bodyA.categoryBitMask == DULabelCategory | ELLabelCategory {
+//            
+//            let action1 = SKAction.applyImpulse(CGVector(dx: 250,dy: 0), duration: 0.5)
+//            let action2 = SKAction.applyImpulse(CGVector(dx: -250,dy: 0), duration: 0.5)
+//            let actionwait = SKAction.waitForDuration(0.0)
+//            let action3 = SKAction.applyImpulse(CGVector(dx: 600,dy: 0), duration: 0.5)
+//            let action4 = SKAction.applyImpulse(CGVector(dx: -600,dy: 0), duration: 0.5)
+//            let sequence1 = SKAction.sequence([action1,actionwait,action3])
+//            let sequence2 = SKAction.sequence([action2,actionwait,action4])
+//        
+//            contact.bodyB.node!.runAction(sequence2)
+//            contact.bodyA.node!.runAction(sequence1)
+//            //contact.bodyB.node!.runAction(SKAction.repeatAction(sequence1, count: 10))
+//        }
+//        
+//        else if contact.bodyA.categoryBitMask == BorderCategory {
+//            
+//            if contact.bodyB.node!.name == "DU" {
+//                contact.bodyB.node!.runAction(SKAction.applyImpulse(CGVector(dx: 750,dy: 0), duration: 0.5))
+//            }
+//            else if contact.bodyB.node!.name == "EL" {
+//                contact.bodyB.node!.runAction(SKAction.applyImpulse(CGVector(dx: -750,dy: 0), duration: 0.5))
+//            }
+//        }
+//        
     }
 }
