@@ -9,12 +9,15 @@
 import SpriteKit
 import GameplayKit
 
+//define physics categories
 let DULabelCategory:UInt32 = 0x1 << 0 // 1
 let ELLabelCategory:UInt32 = 0x1 << 1 // 2
 let BorderCategory:UInt32 = 0x1 << 2 // 4
 
+//main class
 class MainMenu: SKScene, SKPhysicsContactDelegate {
-    
+   
+    //did move to view event, fired when scene initiates
     override func didMoveToView(view: SKView) {
         
         //set scene gravity
@@ -31,30 +34,42 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
     //touches began class, called when user touches the main menu screen
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
+        //define and run begin action sound
         let beginaction = SKAction.playSoundFileNamed("Begin.aifc", waitForCompletion: false)
         runAction(beginaction)
         
-        //controlling which game to navigate to
-        let game:Bricks = Bricks(fileNamed: "Bricks")!
+        //test whether the user has touched the blue circle
+        //declare touch and touch location
+        let touch = touches.first
+        let touchlocation = touch!.locationInNode(self)
+        let body = physicsWorld.bodyAtPoint(touchlocation)
         
-        //set scene scale mode i.e. fill to screen
-        game.scaleMode = .AspectFill
+        if body?.node!.name == "bricks" {
+        
+            //controlling which game to navigate to
+            let game:Bricks = Bricks(fileNamed: "Bricks")!
+            
+            //set scene scale mode i.e. fill to screen
+            game.scaleMode = .AspectFill
     
+            //set transition between screens
+            let Transition:SKTransition = SKTransition.doorwayWithDuration(3)
         
-        //set transition between screens
-        let Transition:SKTransition = SKTransition.doorwayWithDuration(3)
-        
-        //load game scene
-        self.view?.presentScene(game, transition: Transition)
+            //load game scene
+            self.view?.presentScene(game, transition: Transition)
+            
+        }
         
     }
     
+    //format main menu, creates and runs opening animation
     func FormatMainMenuAction() {
         
         //set up frame around full game scene
         let borderBody = SKPhysicsBody(edgeLoopFromRect: self.frame)
         //set border friction to zero, removing physics
         borderBody.friction = 0
+        //define physics for border
         self.physicsBody = borderBody
         borderBody.categoryBitMask = BorderCategory
         
@@ -65,6 +80,7 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
         DUlabel.position = CGPoint(x: 280, y: 1700)
         DUlabel.size = CGSize(width: 200, height: 200)
         DUlabel.name = "DU"
+        //define physics body and set initial physic parameters
         DUlabel.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 200, height: 200))
         DUlabel.physicsBody!.allowsRotation = false
         DUlabel.physicsBody!.categoryBitMask = DULabelCategory
@@ -80,6 +96,7 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
         ELlabel.position = CGPoint(x:880, y:1700)
         ELlabel.size = CGSize(width: 200, height: 200)
         ELlabel.name = "EL"
+        //define physics body and set initial physic parameters
         ELlabel.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 200, height: 200))
         ELlabel.physicsBody!.allowsRotation = false
         ELlabel.physicsBody!.categoryBitMask = ELLabelCategory
@@ -88,94 +105,63 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
         //add to scene
         self.addChild(ELlabel)
         
+        //define sound action
         let soundaction = SKAction.playSoundFileNamed("AreYouReady.aifc", waitForCompletion: false)
-        runAction(soundaction)
         
-        let action1 = SKAction.moveBy(CGVector(dx:0,dy: -600), duration: 2)
-        let action2 = SKAction.applyImpulse(CGVector(dx: 1000,dy: 0), duration: 0.5)
-        let action3 = SKAction.applyImpulse(CGVector(dx: -1000,dy: 0), duration: 0.5)
-        let action4 = SKAction.applyImpulse(CGVector(dx: -1000,dy: 0), duration: 0.5)
-        let action5 = SKAction.applyImpulse(CGVector(dx: 1000,dy: 0), duration: 0.5)
-        let action6 = SKAction.moveTo(CGPoint(x: 340, y: 1100), duration: 0.1)
-        let action7 = SKAction.moveTo(CGPoint(x: 740, y: 1100), duration: 0.1)
-        let action8 = SKAction.rotateByAngle(1.571, duration: 1)
+        //define move down action
+        let MoveDown = SKAction.moveBy(CGVector(dx:0,dy: -600), duration: 2)
+        //define right impulse action, x impulse is randomised using the randomInt function
+        let RightImpulse = SKAction.applyImpulse(CGVector(dx: randomInt(500, max: 1500),dy: 0), duration: 0.5)
+        //define left impulse action, x impulse is randomised using the randomInt function
+        let LeftImpulse = SKAction.applyImpulse(CGVector(dx: randomInt(-1500, max: -500),dy: 0), duration: 0.5)
+        //define rotate action
+        let Rotate = SKAction.rotateByAngle(1.571, duration: 1)
         
-        //let actionwait = SKAction.waitForDuration(0.5)
-        let sequence1 = SKAction.sequence([soundaction, action1, action2, action4, action2, action4, action2, action4, action6])
-        let sequence2 = SKAction.sequence([action1, action3, action5, action3, action5,
-            action3, action5, action7])
+        //define sequences for labels, including a call to repeat action x number of times
+        let DUSequence = SKAction.repeatAction(SKAction.sequence([RightImpulse,LeftImpulse]), count: 5)
+        let ELSequence = SKAction.repeatAction(SKAction.sequence([LeftImpulse,RightImpulse]), count: 5)
         
-        DUlabel.runAction(sequence1, completion: {
-            DUlabel.physicsBody?.pinned = true
-            DUlabel.position = CGPoint(x: 420, y: 1100)
-            print ("moved label")
+        //on DU label, run initial sequence of sound and move down action, once complete run the code within
+        DUlabel.runAction(SKAction.sequence([soundaction, MoveDown]),completion: {
+            //once initial sequence is run, continue to run the defined DU sequence, once complete run the code within
+            DUlabel.runAction(DUSequence, completion: {
+                //pin DU label to negate physics and then set postition to the final one
+                DUlabel.physicsBody?.pinned = true
+                DUlabel.position = CGPoint(x: 420, y: 1100)
             })
-        
-        ELlabel.runAction(sequence2, completion: {
-            ELlabel.physicsBody?.pinned = true
-            ELlabel.position = CGPoint(x: 680, y: 1100)
-            ELlabel.physicsBody?.allowsRotation = true
-            ELlabel.runAction(action8, completion: {
-                ELlabel.zRotation = 1.571
+        })
+        //on EL label, run initial sequence of move down action, once complete run the code within
+        ELlabel.runAction(MoveDown,completion: {
+            //once the initial sequence is run, continue to run the defined EL sequenece, once complete run the code within
+            ELlabel.runAction(ELSequence, completion: {
+                //pin the EL label to negate physics and then set the position to the final and turn on rotation
+                ELlabel.physicsBody?.pinned = true
+                ELlabel.position = CGPoint(x: 680, y: 1100)
+                ELlabel.physicsBody?.allowsRotation = true
+                //run the rotate action, once complete run the code within
+                ELlabel.runAction(Rotate, completion: {
+                    //set the zrotation of the label to 90 degrees anticlockwise
+                    ELlabel.zRotation = 1.571
+                    
+                    //add two circles to direct gameplay
+                    //define new sk sprite node with Ball.png as a base
+                    let circle1 = SKShapeNode(circleOfRadius: 100)
+                    circle1.physicsBody = SKPhysicsBody(circleOfRadius: 100)
+                    circle1.fillColor = SKColor.blueColor()
+                    //set location to the passed CGPoint
+                    circle1.position = CGPoint(x: 300, y: 600)
+                    circle1.name = "bricks"
+                    self.addChild(circle1)
+                })
             })
-            
-            
         })
         
+
         
-            
-        //ELlabel.runAction(sequence2)
-        
-        
-        
-    
     }
-    
-//    func randomDirection() -> CGFloat {
-//        let speedFactor: CGFloat = 1.0
-//        if self.randomFloat(from: 500.00, to: 1000.0) >= 50 {
-//            return -speedFactor
-//        } else {
-//            return speedFactor
-//        }
-//    }
-//    
-//    func randomFloat(from from:CGFloat, to:CGFloat) -> CGFloat {
-//        let rand:CGFloat = CGFloat(Float(arc4random()) / 0xFFFFFFFF)
-//        return (rand) * (to - from) + from
-//    }
-    
-    //did begin contact class, called when ball hits an object with a different category mask
-    func didBeginContact(contact: SKPhysicsContact) {
-        
-        //bodyA is the object that has been hit
-        //bodyB is the object that has hit
-        
-        //test if bodyA (the hit object) is a brick, if it is then....
-//        if contact.bodyA.categoryBitMask == DULabelCategory | ELLabelCategory {
-//            
-//            let action1 = SKAction.applyImpulse(CGVector(dx: 250,dy: 0), duration: 0.5)
-//            let action2 = SKAction.applyImpulse(CGVector(dx: -250,dy: 0), duration: 0.5)
-//            let actionwait = SKAction.waitForDuration(0.0)
-//            let action3 = SKAction.applyImpulse(CGVector(dx: 600,dy: 0), duration: 0.5)
-//            let action4 = SKAction.applyImpulse(CGVector(dx: -600,dy: 0), duration: 0.5)
-//            let sequence1 = SKAction.sequence([action1,actionwait,action3])
-//            let sequence2 = SKAction.sequence([action2,actionwait,action4])
-//        
-//            contact.bodyB.node!.runAction(sequence2)
-//            contact.bodyA.node!.runAction(sequence1)
-//            //contact.bodyB.node!.runAction(SKAction.repeatAction(sequence1, count: 10))
-//        }
-//        
-//        else if contact.bodyA.categoryBitMask == BorderCategory {
-//            
-//            if contact.bodyB.node!.name == "DU" {
-//                contact.bodyB.node!.runAction(SKAction.applyImpulse(CGVector(dx: 750,dy: 0), duration: 0.5))
-//            }
-//            else if contact.bodyB.node!.name == "EL" {
-//                contact.bodyB.node!.runAction(SKAction.applyImpulse(CGVector(dx: -750,dy: 0), duration: 0.5))
-//            }
-//        }
-//        
+
+    //returns a random integer between the passed min and maximum values
+    func randomInt(min: Int, max:Int) -> Int {
+        return min + Int(arc4random_uniform(UInt32(max - min + 1)))
     }
 }
