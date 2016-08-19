@@ -34,17 +34,19 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
     //touches began class, called when user touches the main menu screen
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
-        //define and run begin action sound
-        let beginaction = SKAction.playSoundFileNamed("Begin.aifc", waitForCompletion: false)
-        runAction(beginaction)
-        
         //test whether the user has touched the blue circle
         //declare touch and touch location
         let touch = touches.first
         let touchlocation = touch!.locationInNode(self)
         let body = physicsWorld.bodyAtPoint(touchlocation)
         
+        //define begin action sound
+        let beginaction = SKAction.playSoundFileNamed("Begin.aifc", waitForCompletion: false)
+        
         if body?.node!.name == "bricks" {
+            
+            //run begin action
+            runAction(beginaction)
         
             //controlling which game to navigate to
             let game:Bricks = Bricks(fileNamed: "Bricks")!
@@ -53,13 +55,33 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
             game.scaleMode = .AspectFill
     
             //set transition between screens
-            let Transition:SKTransition = SKTransition.doorwayWithDuration(3)
+            let Transition:SKTransition = SKTransition.crossFadeWithDuration(0.5)
         
             //load game scene
             self.view?.presentScene(game, transition: Transition)
             
         }
+            
+        else if body?.node!.name == "droppingblocks" {
+            
+            //run begin action
+            runAction(beginaction)
+            
+            //controlling which game to navigate to
+            let game:DroppingBlocks = DroppingBlocks(fileNamed: "DroppingBlocks")!
+            
+            //set scene scale mode i.e. fill to screen
+            game.scaleMode = .AspectFill
+            
+            //set transition between screens
+            let Transition:SKTransition = SKTransition.crossFadeWithDuration(0.5)
+            
+            //load game scene
+            self.view?.presentScene(game, transition: Transition)
+            
+        }
         
+            
     }
     
     //format main menu, creates and runs opening animation
@@ -152,6 +174,15 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
                     circle1.position = CGPoint(x: 300, y: 600)
                     circle1.name = "bricks"
                     self.addChild(circle1)
+                    
+                    //define new sk sprite node with Ball.png as a base
+                    let circle2 = SKShapeNode(circleOfRadius: 100)
+                    circle2.physicsBody = SKPhysicsBody(circleOfRadius: 100)
+                    circle2.fillColor = SKColor.redColor()
+                    //set location to the passed CGPoint
+                    circle2.position = CGPoint(x: 600, y: 600)
+                    circle2.name = "droppingblocks"
+                    self.addChild(circle2)
                 })
             })
         })

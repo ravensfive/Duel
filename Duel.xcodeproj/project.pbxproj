@@ -16,6 +16,8 @@
 		2323825C1D40B65400780598 /* DuelUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2323825B1D40B65400780598 /* DuelUITests.swift */; };
 		2323826A1D40B70800780598 /* MainMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = 232382691D40B70800780598 /* MainMenu.sks */; };
 		2323826C1D40B71C00780598 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2323826B1D40B71C00780598 /* MainMenu.swift */; };
+		2363083B1D67A9B800636FB8 /* DroppingBlocks.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2363083A1D67A9B800636FB8 /* DroppingBlocks.sks */; };
+		2363083D1D67AA0800636FB8 /* DroppingBlocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2363083C1D67AA0800636FB8 /* DroppingBlocks.swift */; };
 		239174E41D5DB053003C991B /* Playing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239174E31D5DB053003C991B /* Playing.swift */; };
 		239174E71D5DB12C003C991B /* WaitingForTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239174E61D5DB12C003C991B /* WaitingForTap.swift */; };
 		239174E91D5DB19B003C991B /* GameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239174E81D5DB19B003C991B /* GameOver.swift */; };
@@ -59,6 +61,8 @@
 		2323825D1D40B65400780598 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		232382691D40B70800780598 /* MainMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MainMenu.sks; sourceTree = "<group>"; };
 		2323826B1D40B71C00780598 /* MainMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
+		2363083A1D67A9B800636FB8 /* DroppingBlocks.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = DroppingBlocks.sks; sourceTree = "<group>"; };
+		2363083C1D67AA0800636FB8 /* DroppingBlocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DroppingBlocks.swift; sourceTree = "<group>"; };
 		239174E31D5DB053003C991B /* Playing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Playing.swift; path = Duel/Playing.swift; sourceTree = "<group>"; };
 		239174E61D5DB12C003C991B /* WaitingForTap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WaitingForTap.swift; path = Duel/WaitingForTap.swift; sourceTree = "<group>"; };
 		239174E81D5DB19B003C991B /* GameOver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameOver.swift; path = Duel/GameOver.swift; sourceTree = "<group>"; };
@@ -122,6 +126,8 @@
 				2323823D1D40B65400780598 /* GameViewController.swift */,
 				232382691D40B70800780598 /* MainMenu.sks */,
 				2323826B1D40B71C00780598 /* MainMenu.swift */,
+				2363083A1D67A9B800636FB8 /* DroppingBlocks.sks */,
+				2363083C1D67AA0800636FB8 /* DroppingBlocks.swift */,
 				23FA283C1D474009006CDC20 /* Bricks.sks */,
 				2323823F1D40B65400780598 /* Main.storyboard */,
 				23FA283E1D47402C006CDC20 /* Bricks.swift */,
@@ -281,6 +287,7 @@
 				232382431D40B65400780598 /* Assets.xcassets in Resources */,
 				23FA283D1D474009006CDC20 /* Bricks.sks in Resources */,
 				E10C85CC1D62D3B1006753AE /* AreYouReady.aifc in Resources */,
+				2363083B1D67A9B800636FB8 /* DroppingBlocks.sks in Resources */,
 				2323826A1D40B70800780598 /* MainMenu.sks in Resources */,
 				239174EB1D5DB239003C991B /* SwishTrimmed.m4a in Resources */,
 				232382411D40B65400780598 /* Main.storyboard in Resources */,
@@ -308,6 +315,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2363083D1D67AA0800636FB8 /* DroppingBlocks.swift in Sources */,
 				239174E41D5DB053003C991B /* Playing.swift in Sources */,
 				23FA283F1D47402C006CDC20 /* Bricks.swift in Sources */,
 				239174E91D5DB19B003C991B /* GameOver.swift in Sources */,
