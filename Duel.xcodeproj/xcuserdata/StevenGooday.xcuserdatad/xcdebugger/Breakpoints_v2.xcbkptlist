@@ -19,5 +19,98 @@
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Duel/Bricks.swift"
+            timestampString = "493337295.561864"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "18"
+            endingLineNumber = "18"
+            landmarkName = "Bricks"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Duel.Bricks.TouchLocation.getter : __C.CGPoint"
+                  moduleName = "Duel"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/StevenGooday/Desktop/Duel/Duel/Duel/Bricks.swift"
+                  timestampString = "493337295.571025"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "26">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Duel.Bricks.TouchLocation.setter : __C.CGPoint"
+                  moduleName = "Duel"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/StevenGooday/Desktop/Duel/Duel/Duel/Bricks.swift"
+                  timestampString = "493337295.571413"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "36">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Duel.Bricks.init (size : __C.CGSize) -&gt; Duel.Bricks"
+                  moduleName = "Duel"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/StevenGooday/Desktop/Duel/Duel/Duel/Bricks.swift"
+                  timestampString = "493337295.571579"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "36">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Duel.Bricks.init () -&gt; Duel.Bricks"
+                  moduleName = "Duel"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/StevenGooday/Desktop/Duel/Duel/Duel/Bricks.swift"
+                  timestampString = "493337295.572017"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "26">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Duel.Bricks.init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;Duel.Bricks&gt;"
+                  moduleName = "Duel"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/StevenGooday/Desktop/Duel/Duel/Duel/Bricks.swift"
+                  timestampString = "493337295.572865"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "30">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
