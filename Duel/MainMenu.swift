@@ -55,7 +55,7 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
             game.scaleMode = .AspectFill
     
             //set transition between screens
-            let Transition:SKTransition = SKTransition.crossFadeWithDuration(0.5)
+            let Transition:SKTransition = SKTransition.crossFadeWithDuration(2)
         
             //load game scene
             self.view?.presentScene(game, transition: Transition)
@@ -74,7 +74,7 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
             game.scaleMode = .AspectFill
             
             //set transition between screens
-            let Transition:SKTransition = SKTransition.crossFadeWithDuration(0.5)
+            let Transition:SKTransition = SKTransition.crossFadeWithDuration(2)
             
             //load game scene
             self.view?.presentScene(game, transition: Transition)
@@ -138,16 +138,20 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
         let LeftImpulse = SKAction.applyImpulse(CGVector(dx: randomInt(-1500, max: -500),dy: 0), duration: 0.5)
         //define rotate action
         let Rotate = SKAction.rotateByAngle(1.571, duration: 1)
+        let Wait = SKAction.waitForDuration(0.5)
         
         //define sequences for labels, including a call to repeat action x number of times
         let DUSequence = SKAction.repeatAction(SKAction.sequence([RightImpulse,LeftImpulse]), count: 5)
         let ELSequence = SKAction.repeatAction(SKAction.sequence([LeftImpulse,RightImpulse]), count: 5)
+        let DUFinalMove = SKAction.moveTo(CGPoint(x: 420, y: 1100), duration: 2.0)
+        let ELRotate = SKAction.sequence([Wait, Rotate])
         
         //on DU label, run initial sequence of sound and move down action, once complete run the code within
         DUlabel.runAction(SKAction.sequence([soundaction, MoveDown]),completion: {
             //once initial sequence is run, continue to run the defined DU sequence, once complete run the code within
             DUlabel.runAction(DUSequence, completion: {
                 //pin DU label to negate physics and then set postition to the final one
+                DUlabel.runAction(DUFinalMove)
                 DUlabel.physicsBody?.pinned = true
                 DUlabel.position = CGPoint(x: 420, y: 1100)
             })
@@ -161,7 +165,7 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
                 ELlabel.position = CGPoint(x: 680, y: 1100)
                 ELlabel.physicsBody?.allowsRotation = true
                 //run the rotate action, once complete run the code within
-                ELlabel.runAction(Rotate, completion: {
+                ELlabel.runAction(ELRotate, completion: {
                     //set the zrotation of the label to 90 degrees anticlockwise
                     ELlabel.zRotation = 1.571
                     

@@ -198,26 +198,30 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
     
     //touches moved class, called when the users moves once they have touched the screen anywhere
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    
+    //Error if paddle moved whilst in gameover mode as it has been removed
+    if gameState.currentState is Playing {
         
         // check if finger is on the paddle node, set in touches began class
-        if isFingerOnPaddle {
-            //print(isFingerOnPaddle)
+            if isFingerOnPaddle {
+                //print(isFingerOnPaddle)
             
-            //this code moves the paddle, but we don't know why yet
-            TouchLocation = touches.first!.locationInNode(self)
-            //print(TouchLocation)
+                //this code moves the paddle, but we don't know why yet
+                TouchLocation = touches.first!.locationInNode(self)
+                //print(TouchLocation)
+                
+                //Set up touch and touch location as variables
+                let touch = touches.first
+                let touchlocation = touch!.locationInNode(self)
+                let paddle = childNodeWithName("paddle") as! SKSpriteNode
             
-            //Set up touch and touch location as variables
-            let touch = touches.first
-            let touchlocation = touch!.locationInNode(self)
-            let paddle = childNodeWithName("paddle") as! SKSpriteNode
+                //Set up previous location and identify paddle object
+                let previousLocation = touch!.previousLocationInNode(self)
             
-           //Set up previous location and identify paddle object
-            let previousLocation = touch!.previousLocationInNode(self)
+                let paddlex = paddle.position.x + (touchlocation.x - previousLocation.x)
+                paddle.position = CGPoint(x: paddlex, y: paddle.position.y)
             
-            let paddlex = paddle.position.x + (touchlocation.x - previousLocation.x)
-            paddle.position = CGPoint(x: paddlex, y: paddle.position.y)
-            
+            }
         }
         
     }
