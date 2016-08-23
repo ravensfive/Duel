@@ -11,8 +11,8 @@ import SpriteKit
 
 class DroppingBlocks: SKScene, SKPhysicsContactDelegate {
     
-    let PlayerCategory:UInt32 = 0x1 << 0 // 1
-    let BlockCategory:UInt32 = 0x1 << 1 // 2
+    let PlayerCategory:UInt32 = 0x1 << 1 // 1
+    let BlockCategory:UInt32 = 0x1 << 0 // 2
     let BottomCategory:UInt32 = 0x1 << 2 // 4
     
     var isfingeronplayer = false
@@ -42,22 +42,26 @@ class DroppingBlocks: SKScene, SKPhysicsContactDelegate {
     func addBorders() {
         
         //set up frame around full game scene
-        let borderBody = SKPhysicsBody(edgeLoopFromRect: self.frame)
+        //let borderBody = SKPhysicsBody(edgeLoopFromRect: self.frame)
         //set border friction to zero, removing physics
-        borderBody.friction = 0
-        self.physicsBody = borderBody
-        
+        //borderBody.friction = 0
+        //self.physicsBody = borderBody
+        //borderBody.categoryBitMask = BottomCategory
         //set up a frame along the bottom of the gamescene to detect collisons
-        let bottomRect = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width, height: 1)
+        let bottomRect = SKShapeNode(rectOfSize: CGSize(width: frame.size.width, height: 100))
+        bottomRect.position = CGPoint(x: frame.size.width/2, y: 200)
+        bottomRect.fillColor = SKColor.blueColor()
         //declare bottom as a node
-        let bottom = SKNode()
-        //set physics body for node/bottom
-        bottom.physicsBody = SKPhysicsBody(edgeLoopFromRect: bottomRect)
+        //let bottom = SKNode()
+       //set physics body for node/bottom
+        bottomRect.physicsBody = SKPhysicsBody(rectangleOfSize: bottomRect.frame.size)
+        bottomRect.physicsBody?.pinned = true
+        bottomRect.physicsBody?.allowsRotation = false
         //add bottom line to the scene
-        addChild(bottom)
+        addChild(bottomRect)
         
         //apply intialised physics categories to their objects
-        bottom.physicsBody!.categoryBitMask = BottomCategory
+        bottomRect.physicsBody!.categoryBitMask = BottomCategory
         
     }
     
@@ -87,8 +91,9 @@ class DroppingBlocks: SKScene, SKPhysicsContactDelegate {
     fallingblock.physicsBody!.affectedByGravity = true
     fallingblock.name = "fallingblock"
     fallingblock.physicsBody!.categoryBitMask = BlockCategory
-    fallingblock.zPosition = 2
-        fallingblock.physicsBody?.contactTestBitMask = PlayerCategory|BottomCategory
+    fallingblock.physicsBody!.restitution = 0
+    //fallingblock.zPosition = 2
+    fallingblock.physicsBody?.contactTestBitMask = PlayerCategory|BottomCategory
     addChild(fallingblock)
         
     }
@@ -155,11 +160,14 @@ class DroppingBlocks: SKScene, SKPhysicsContactDelegate {
         
         //test if bodyA (the hit object) is a brick, if it is then....
         if contact.bodyA.categoryBitMask == BottomCategory {
+            if contact.bodyB.categoryBitMask == BlockCategory {
+                // Testing if node exists and then removes if it does
+                contact.bodyB.node?.removeFromParent()
+                // add another block
+                print("Block added")
+                addFallingBlock()
+            }
             
-            // Testing if node exists and then removes if it does
-            contact.bodyB.node?.removeFromParent()
-            // add another block
-            addFallingBlock()
         }
         
     }

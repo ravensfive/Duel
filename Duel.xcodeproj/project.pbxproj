@@ -22,6 +22,7 @@
 		239174E71D5DB12C003C991B /* WaitingForTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239174E61D5DB12C003C991B /* WaitingForTap.swift */; };
 		239174E91D5DB19B003C991B /* GameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239174E81D5DB19B003C991B /* GameOver.swift */; };
 		239174EB1D5DB239003C991B /* SwishTrimmed.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 239174EA1D5DB239003C991B /* SwishTrimmed.m4a */; };
+		23984FC31D6C2B3C00407154 /* ActionsComments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23984FC21D6C2B3C00407154 /* ActionsComments.swift */; };
 		23FA283D1D474009006CDC20 /* Bricks.sks in Resources */ = {isa = PBXBuildFile; fileRef = 23FA283C1D474009006CDC20 /* Bricks.sks */; };
 		23FA283F1D47402C006CDC20 /* Bricks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FA283E1D47402C006CDC20 /* Bricks.swift */; };
 		E10C85CC1D62D3B1006753AE /* AreYouReady.aifc in Resources */ = {isa = PBXBuildFile; fileRef = E10C85CB1D62D3B1006753AE /* AreYouReady.aifc */; };
@@ -67,6 +68,7 @@
 		239174E61D5DB12C003C991B /* WaitingForTap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WaitingForTap.swift; path = Duel/WaitingForTap.swift; sourceTree = "<group>"; };
 		239174E81D5DB19B003C991B /* GameOver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameOver.swift; path = Duel/GameOver.swift; sourceTree = "<group>"; };
 		239174EA1D5DB239003C991B /* SwishTrimmed.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = SwishTrimmed.m4a; sourceTree = "<group>"; };
+		23984FC21D6C2B3C00407154 /* ActionsComments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionsComments.swift; sourceTree = "<group>"; };
 		23FA283C1D474009006CDC20 /* Bricks.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Bricks.sks; sourceTree = "<group>"; };
 		23FA283E1D47402C006CDC20 /* Bricks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bricks.swift; sourceTree = "<group>"; };
 		E10C85CB1D62D3B1006753AE /* AreYouReady.aifc */ = {isa = PBXFileReference; lastKnownFileType = file; path = AreYouReady.aifc; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				23FA283C1D474009006CDC20 /* Bricks.sks */,
 				2323823F1D40B65400780598 /* Main.storyboard */,
 				23FA283E1D47402C006CDC20 /* Bricks.swift */,
+				23984FC21D6C2B3C00407154 /* ActionsComments.swift */,
 				239174EC1D5DB26D003C991B /* Sounds */,
 				232382421D40B65400780598 /* Assets.xcassets */,
 				232382441D40B65400780598 /* LaunchScreen.storyboard */,
@@ -317,6 +320,7 @@
 			files = (
 				2363083D1D67AA0800636FB8 /* DroppingBlocks.swift in Sources */,
 				239174E41D5DB053003C991B /* Playing.swift in Sources */,
+				23984FC31D6C2B3C00407154 /* ActionsComments.swift in Sources */,
 				23FA283F1D47402C006CDC20 /* Bricks.swift in Sources */,
 				239174E91D5DB19B003C991B /* GameOver.swift in Sources */,
 				2323823E1D40B65400780598 /* GameViewController.swift in Sources */,
