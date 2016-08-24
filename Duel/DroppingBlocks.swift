@@ -8,15 +8,19 @@
 
 import UIKit
 import SpriteKit
+import GameKit
 
 class DroppingBlocks: SKScene, SKPhysicsContactDelegate {
     
-    let PlayerCategory:UInt32 = 0x1 << 1 // 1
-    let BlockCategory:UInt32 = 0x1 << 0 // 2
+    
+    let BlockCategory:UInt32 = 0x1 << 0 // 1
+    let PlayerCategory:UInt32 = 0x1 << 1 // 2
     let BottomCategory:UInt32 = 0x1 << 2 // 4
     
     var isfingeronplayer = false
     var TouchLocation:CGPoint = CGPointZero
+    
+    lazy var gameState:GKStateMachine = GKStateMachine(states:[WaitingForTapDB(scene: self),PlayingDB(scene:self),GameOverDB(scene:self)])
     
     //didmovetoview function, called when view loads
     override func didMoveToView(view: SKView) {
@@ -24,17 +28,16 @@ class DroppingBlocks: SKScene, SKPhysicsContactDelegate {
         //set initial physics of gamescene
         self.physicsWorld.contactDelegate = self
         
+        gameState.enterState(WaitingForTapDB)
+        
         //set scene gravity
-        scene?.physicsWorld.gravity = CGVector(dx: 0, dy: -1)
+        scene?.physicsWorld.gravity = CGVector(dx: 0, dy: -3)
         
         //add borders around frame and apply physics to bottom
         addBorders()
         
         //add player object
         addPlayer()
-        
-        //add starting block
-        addFallingBlock()
     
     }
     
@@ -42,14 +45,14 @@ class DroppingBlocks: SKScene, SKPhysicsContactDelegate {
     func addBorders() {
         
         //set up frame around full game scene
-        //let borderBody = SKPhysicsBody(edgeLoopFromRect: self.frame)
+        let borderBody = SKPhysicsBody(edgeLoopFromRect: self.frame)
         //set border friction to zero, removing physics
-        //borderBody.friction = 0
-        //self.physicsBody = borderBody
-        //borderBody.categoryBitMask = BottomCategory
+        borderBody.friction = 0
+        self.physicsBody = borderBody
+        
         //set up a frame along the bottom of the gamescene to detect collisons
-        let bottomRect = SKShapeNode(rectOfSize: CGSize(width: frame.size.width, height: 100))
-        bottomRect.position = CGPoint(x: frame.size.width/2, y: 200)
+        let bottomRect = SKShapeNode(rectOfSize: CGSize(width: frame.size.width, height: 5))
+        bottomRect.position = CGPoint(x: frame.size.width/2, y: frame.origin.y)
         bottomRect.fillColor = SKColor.blueColor()
         //declare bottom as a node
         //let bottom = SKNode()
@@ -68,34 +71,35 @@ class DroppingBlocks: SKScene, SKPhysicsContactDelegate {
     //custom class to add paddle
     func addPlayer() {
         
-        let player = SKShapeNode(circleOfRadius: 75)
-        player.fillColor = SKColor.blueColor()
-        
-        player.position = CGPoint(x: 750, y: 500)
+        let player = SKShapeNode(circleOfRadius: 50)
+        player.position = CGPoint(x: frame.size.width/2, y: 25)
+        player.fillColor = SKColor.redColor()
+        player.physicsBody = SKPhysicsBody(circleOfRadius: 50)
+        player.physicsBody!.categoryBitMask = PlayerCategory
         player.name = "player"
-        player.physicsBody = SKPhysicsBody(circleOfRadius: 75)
-        player.physicsBody?.categoryBitMask = PlayerCategory
         player.physicsBody!.affectedByGravity = false
         player.physicsBody!.dynamic = true
-        addChild(player)
+        self.addChild(player)
         
     }
     
     //add custom block
     func addFallingBlock() {
-    let fallingblock = SKShapeNode(rectOfSize: CGSize(width: randomInt(50, max: 75), height: randomInt(50, max: 75)))
+    let fallingblock = SKShapeNode(rectOfSize: CGSize(width: randomInt(100, max:1000), height: randomInt(20, max: 250)))
     //set the brick position
-    fallingblock.position = CGPoint(x: randomInt(100, max: 900), y: 1800)
+    fallingblock.position = CGPoint(x: randomInt(100, max: 900), y: 1900)
     fallingblock.fillColor = SKColor.darkGrayColor()
     fallingblock.physicsBody = SKPhysicsBody(rectangleOfSize: fallingblock.frame.size)
     fallingblock.physicsBody!.affectedByGravity = true
     fallingblock.name = "fallingblock"
     fallingblock.physicsBody!.categoryBitMask = BlockCategory
+    fallingblock.physicsBody!.mass = 0.1
     fallingblock.physicsBody!.restitution = 0
-    //fallingblock.zPosition = 2
+    
     fallingblock.physicsBody?.contactTestBitMask = PlayerCategory|BottomCategory
     addChild(fallingblock)
-        
+    
+    fallingblock.physicsBody!.applyImpulse(CGVector(dx: 0, dy: randomInt(0, max: 300)))
     }
     
     //touches began class, called when user first touches the screen anywhere
@@ -106,11 +110,40 @@ class DroppingBlocks: SKScene, SKPhysicsContactDelegate {
         let touchlocation = touch!.locationInNode(self)
         let body = physicsWorld.bodyAtPoint(touchlocation)
         
-        if body?.node!.name == "player" {
+        //test current state and if in waiting for tap state then switch to playing
+        switch gameState.currentState {
+        case is WaitingForTapDB:
             
-            isfingeronplayer = true
-        
+            //test if the body touched is the ball
+            if body?.node!.name == "player" {
+                
+                //Set game state to playing
+                gameState.enterState(PlayingDB)
+                
+            }
+            
+        case is PlayingDB:
+            
+            if body?.node!.name == "player" {
+                
+                isfingeronplayer = true
+                
+            }
+            
+        case is GameOverDB:
+            
+            let newscene = MainMenu(fileNamed: "MainMenu")
+            newscene!.scaleMode = .AspectFill
+            let reveal = SKTransition.flipHorizontalWithDuration(0.5)
+            self.view?.presentScene(newscene!, transition: reveal)
+            
+        default:break
+            
         }
+        
+        
+        
+
     }
     
         //touches moved class, called when the users moves once they have touched the screen anywhere
@@ -119,20 +152,12 @@ class DroppingBlocks: SKScene, SKPhysicsContactDelegate {
             // check if finger is on the player node, set in touches began class
             if isfingeronplayer {
                 
-                //this code moves the paddle, but we don't know why yet
+                //this code sets the touch location of the touch
                 TouchLocation = touches.first!.locationInNode(self)
-                //print(TouchLocation)
                 
-                //Set up touch and touch location as variables
-                //let touch = touches.first
-                //let touchlocation = touch!.locationInNode(self)
-                //let player = childNodeWithName("player") as! SKShapeNode
-                
-                //Set up previous location and identify paddle object
-                //let previousLocation = touch!.previousLocationInNode(self)
-                
-                //let playerx = player.position.x + (touchlocation.x - previousLocation.x)
-                //player.position = CGPoint(x: playerx, y: player.position.y)
+                //this defines the object thats been touched and moves the object to the new location (with the finger)
+                let player = childNodeWithName("player") as! SKShapeNode
+                player.position = TouchLocation
                 
             }
             
@@ -148,8 +173,7 @@ class DroppingBlocks: SKScene, SKPhysicsContactDelegate {
     
     //update class, also used in moving the paddle
     override func update(currentTime: CFTimeInterval) {
-        let player = childNodeWithName("player") as! SKShapeNode
-        player.position = TouchLocation
+        
     }
     
     //did begin contact class, called when ball hits an object with a different category mask
@@ -164,10 +188,13 @@ class DroppingBlocks: SKScene, SKPhysicsContactDelegate {
                 // Testing if node exists and then removes if it does
                 contact.bodyB.node?.removeFromParent()
                 // add another block
-                print("Block added")
                 addFallingBlock()
             }
-            
+        }
+        else if contact.bodyA.categoryBitMask == PlayerCategory {
+            print ("game over")
+            contact.bodyA.node?.removeFromParent()
+            contact.bodyB.node?.removeFromParent()
         }
         
     }

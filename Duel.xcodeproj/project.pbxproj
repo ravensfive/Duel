@@ -23,6 +23,10 @@
 		239174E91D5DB19B003C991B /* GameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239174E81D5DB19B003C991B /* GameOver.swift */; };
 		239174EB1D5DB239003C991B /* SwishTrimmed.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 239174EA1D5DB239003C991B /* SwishTrimmed.m4a */; };
 		23984FC31D6C2B3C00407154 /* ActionsComments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23984FC21D6C2B3C00407154 /* ActionsComments.swift */; };
+		23A738DB1D6DAB6900E9428A /* GameOverDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A738DA1D6DAB6900E9428A /* GameOverDB.swift */; };
+		23A738DD1D6DAB7B00E9428A /* PlayingDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A738DC1D6DAB7B00E9428A /* PlayingDB.swift */; };
+		23A738DF1D6DAB8D00E9428A /* WaitingForTapDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A738DE1D6DAB8D00E9428A /* WaitingForTapDB.swift */; };
+		23A738E21D6DB1FC00E9428A /* GameIdeas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A738E11D6DB1FC00E9428A /* GameIdeas.swift */; };
 		23FA283D1D474009006CDC20 /* Bricks.sks in Resources */ = {isa = PBXBuildFile; fileRef = 23FA283C1D474009006CDC20 /* Bricks.sks */; };
 		23FA283F1D47402C006CDC20 /* Bricks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FA283E1D47402C006CDC20 /* Bricks.swift */; };
 		E10C85CC1D62D3B1006753AE /* AreYouReady.aifc in Resources */ = {isa = PBXBuildFile; fileRef = E10C85CB1D62D3B1006753AE /* AreYouReady.aifc */; };
@@ -69,6 +73,10 @@
 		239174E81D5DB19B003C991B /* GameOver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameOver.swift; path = Duel/GameOver.swift; sourceTree = "<group>"; };
 		239174EA1D5DB239003C991B /* SwishTrimmed.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = SwishTrimmed.m4a; sourceTree = "<group>"; };
 		23984FC21D6C2B3C00407154 /* ActionsComments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionsComments.swift; sourceTree = "<group>"; };
+		23A738DA1D6DAB6900E9428A /* GameOverDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverDB.swift; sourceTree = "<group>"; };
+		23A738DC1D6DAB7B00E9428A /* PlayingDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayingDB.swift; sourceTree = "<group>"; };
+		23A738DE1D6DAB8D00E9428A /* WaitingForTapDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitingForTapDB.swift; sourceTree = "<group>"; };
+		23A738E11D6DB1FC00E9428A /* GameIdeas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameIdeas.swift; sourceTree = "<group>"; };
 		23FA283C1D474009006CDC20 /* Bricks.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Bricks.sks; sourceTree = "<group>"; };
 		23FA283E1D47402C006CDC20 /* Bricks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bricks.swift; sourceTree = "<group>"; };
 		E10C85CB1D62D3B1006753AE /* AreYouReady.aifc */ = {isa = PBXFileReference; lastKnownFileType = file; path = AreYouReady.aifc; sourceTree = "<group>"; };
@@ -123,17 +131,16 @@
 		232382361D40B65400780598 /* Duel */ = {
 			isa = PBXGroup;
 			children = (
+				23A738E31D6DB21200E9428A /* Administration */,
+				23A738E01D6DAFC600E9428A /* Dropping Blocks */,
 				239174E51D5DB066003C991B /* GameStates */,
 				232382371D40B65400780598 /* AppDelegate.swift */,
 				2323823D1D40B65400780598 /* GameViewController.swift */,
 				232382691D40B70800780598 /* MainMenu.sks */,
 				2323826B1D40B71C00780598 /* MainMenu.swift */,
-				2363083A1D67A9B800636FB8 /* DroppingBlocks.sks */,
-				2363083C1D67AA0800636FB8 /* DroppingBlocks.swift */,
 				23FA283C1D474009006CDC20 /* Bricks.sks */,
 				2323823F1D40B65400780598 /* Main.storyboard */,
 				23FA283E1D47402C006CDC20 /* Bricks.swift */,
-				23984FC21D6C2B3C00407154 /* ActionsComments.swift */,
 				239174EC1D5DB26D003C991B /* Sounds */,
 				232382421D40B65400780598 /* Assets.xcassets */,
 				232382441D40B65400780598 /* LaunchScreen.storyboard */,
@@ -163,9 +170,7 @@
 		239174E51D5DB066003C991B /* GameStates */ = {
 			isa = PBXGroup;
 			children = (
-				239174E81D5DB19B003C991B /* GameOver.swift */,
-				239174E31D5DB053003C991B /* Playing.swift */,
-				239174E61D5DB12C003C991B /* WaitingForTap.swift */,
+				23A738D81D6DAAE400E9428A /* Bricks */,
 			);
 			name = GameStates;
 			path = ..;
@@ -179,6 +184,46 @@
 				239174EA1D5DB239003C991B /* SwishTrimmed.m4a */,
 			);
 			name = Sounds;
+			sourceTree = "<group>";
+		};
+		23A738D81D6DAAE400E9428A /* Bricks */ = {
+			isa = PBXGroup;
+			children = (
+				239174E81D5DB19B003C991B /* GameOver.swift */,
+				239174E31D5DB053003C991B /* Playing.swift */,
+				239174E61D5DB12C003C991B /* WaitingForTap.swift */,
+			);
+			name = Bricks;
+			sourceTree = "<group>";
+		};
+		23A738D91D6DAB3800E9428A /* Game States */ = {
+			isa = PBXGroup;
+			children = (
+				23A738DA1D6DAB6900E9428A /* GameOverDB.swift */,
+				23A738DC1D6DAB7B00E9428A /* PlayingDB.swift */,
+				23A738DE1D6DAB8D00E9428A /* WaitingForTapDB.swift */,
+			);
+			name = "Game States";
+			path = ..;
+			sourceTree = "<group>";
+		};
+		23A738E01D6DAFC600E9428A /* Dropping Blocks */ = {
+			isa = PBXGroup;
+			children = (
+				2363083A1D67A9B800636FB8 /* DroppingBlocks.sks */,
+				2363083C1D67AA0800636FB8 /* DroppingBlocks.swift */,
+				23A738D91D6DAB3800E9428A /* Game States */,
+			);
+			name = "Dropping Blocks";
+			sourceTree = "<group>";
+		};
+		23A738E31D6DB21200E9428A /* Administration */ = {
+			isa = PBXGroup;
+			children = (
+				23A738E11D6DB1FC00E9428A /* GameIdeas.swift */,
+				23984FC21D6C2B3C00407154 /* ActionsComments.swift */,
+			);
+			name = Administration;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -319,12 +364,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				2363083D1D67AA0800636FB8 /* DroppingBlocks.swift in Sources */,
+				23A738E21D6DB1FC00E9428A /* GameIdeas.swift in Sources */,
 				239174E41D5DB053003C991B /* Playing.swift in Sources */,
 				23984FC31D6C2B3C00407154 /* ActionsComments.swift in Sources */,
+				23A738DB1D6DAB6900E9428A /* GameOverDB.swift in Sources */,
 				23FA283F1D47402C006CDC20 /* Bricks.swift in Sources */,
 				239174E91D5DB19B003C991B /* GameOver.swift in Sources */,
 				2323823E1D40B65400780598 /* GameViewController.swift in Sources */,
 				239174E71D5DB12C003C991B /* WaitingForTap.swift in Sources */,
+				23A738DD1D6DAB7B00E9428A /* PlayingDB.swift in Sources */,
+				23A738DF1D6DAB8D00E9428A /* WaitingForTapDB.swift in Sources */,
 				232382381D40B65400780598 /* AppDelegate.swift in Sources */,
 				2323826C1D40B71C00780598 /* MainMenu.swift in Sources */,
 			);
