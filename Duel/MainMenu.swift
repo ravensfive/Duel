@@ -14,6 +14,8 @@ let DULabelCategory:UInt32 = 0x1 << 0 // 1
 let ELLabelCategory:UInt32 = 0x1 << 1 // 2
 let BorderCategory:UInt32 = 0x1 << 2 // 4
 
+//let ELlabel = SKSpriteNode(imageNamed: "EL")
+
 //main class
 class MainMenu: SKScene, SKPhysicsContactDelegate {
    
@@ -127,9 +129,12 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
         //add to scene
         self.addChild(ELlabel)
         
-        //define sound action
-        let soundaction = SKAction.playSoundFileNamed("AreYouReady.aifc", waitForCompletion: false)
+        OpeningSequence()
+        //let DUlabel = SKSpriteNode(imageNamed: "DU")
+        //let ELlabel = SKSpriteNode(imageNamed: "EL")
         
+        //define sound action
+        //let soundaction = SKAction.playSoundFileNamed("AreYouReady.aifc", waitForCompletion: false)
         //define move down action
         let MoveDown = SKAction.moveBy(CGVector(dx:0,dy: -600), duration: 2)
         //define right impulse action, x impulse is randomised using the randomInt function
@@ -147,7 +152,7 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
         let ELRotate = SKAction.sequence([Wait, Rotate])
         
         //on DU label, run initial sequence of sound and move down action, once complete run the code within
-        DUlabel.runAction(SKAction.sequence([soundaction, MoveDown]),completion: {
+        DUlabel.runAction(SKAction.sequence([MoveDown]),completion: {
             //once initial sequence is run, continue to run the defined DU sequence, once complete run the code within
             DUlabel.runAction(DUSequence, completion: {
                 //pin DU label to negate physics and then set postition to the final one
@@ -156,6 +161,7 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
                 DUlabel.position = CGPoint(x: 420, y: 1100)
             })
         })
+        
         //on EL label, run initial sequence of move down action, once complete run the code within
         ELlabel.runAction(MoveDown,completion: {
             //once the initial sequence is run, continue to run the defined EL sequenece, once complete run the code within
@@ -191,6 +197,8 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
             })
         })
         
+        
+        
 
         
     }
@@ -198,5 +206,71 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
     //returns a random integer between the passed min and maximum values
     func randomInt(min: Int, max:Int) -> Int {
         return min + Int(arc4random_uniform(UInt32(max - min + 1)))
+    }
+    
+    func OpeningSequence()  {
+        print ("Entered")
+        let ELlabel = SKSpriteNode(imageNamed: "EL")
+        ELlabel.position = CGPoint(x: 680, y: 1100)
+        //define sound action
+        let soundaction = SKAction.playSoundFileNamed("AreYouReady.aifc", waitForCompletion: false)
+        runAction(soundaction)
+        
+    }
+    
+    func RunOpeningSequence() {
+        
+        print ("In opening sequence")
+        
+        let DUlabel = SKSpriteNode(imageNamed: "DU")
+        let ELlabel = SKSpriteNode(imageNamed: "EL")
+        
+        //define sound action
+        let soundaction = SKAction.playSoundFileNamed("AreYouReady.aifc", waitForCompletion: false)
+        //define move down action
+        let MoveDown = SKAction.moveBy(CGVector(dx:0,dy: -600), duration: 2)
+        //define right impulse action, x impulse is randomised using the randomInt function
+        let RightImpulse = SKAction.applyImpulse(CGVector(dx: randomInt(500, max: 1500),dy: 0), duration: 0.5)
+        //define left impulse action, x impulse is randomised using the randomInt function
+        let LeftImpulse = SKAction.applyImpulse(CGVector(dx: randomInt(-1500, max: -500),dy: 0), duration: 0.5)
+        //define rotate action
+        let Rotate = SKAction.rotateByAngle(1.571, duration: 1)
+        let Wait = SKAction.waitForDuration(0.5)
+        
+        //define sequences for labels, including a call to repeat action x number of times
+        let DUSequence = SKAction.repeatAction(SKAction.sequence([RightImpulse,LeftImpulse]), count: 5)
+        let ELSequence = SKAction.repeatAction(SKAction.sequence([LeftImpulse,RightImpulse]), count: 5)
+        let DUFinalMove = SKAction.moveTo(CGPoint(x: 420, y: 1100), duration: 2.0)
+        let ELRotate = SKAction.sequence([Wait, Rotate])
+        
+        //on DU label, run initial sequence of sound and move down action, once complete run the code within
+        DUlabel.runAction(SKAction.sequence([soundaction, MoveDown]),completion: {
+            //once initial sequence is run, continue to run the defined DU sequence, once complete run the code within
+            DUlabel.runAction(DUSequence, completion: {
+                //pin DU label to negate physics and then set postition to the final one
+                DUlabel.runAction(DUFinalMove)
+                DUlabel.physicsBody?.pinned = true
+                DUlabel.position = CGPoint(x: 420, y: 1100)
+            })
+        })
+        
+        //on EL label, run initial sequence of move down action, once complete run the code within
+        ELlabel.runAction(MoveDown,completion: {
+            //once the initial sequence is run, continue to run the defined EL sequenece, once complete run the code within
+            ELlabel.runAction(ELSequence, completion: {
+                //pin the EL label to negate physics and then set the position to the final and turn on rotation
+                ELlabel.physicsBody?.pinned = true
+                ELlabel.position = CGPoint(x: 680, y: 1100)
+                ELlabel.physicsBody?.allowsRotation = true
+                //run the rotate action, once complete run the code within
+                ELlabel.runAction(ELRotate, completion: {
+                    //set the zrotation of the label to 90 degrees anticlockwise
+                    ELlabel.zRotation = 1.571
+    
+                })
+            })
+        })
+        
+        
     }
 }

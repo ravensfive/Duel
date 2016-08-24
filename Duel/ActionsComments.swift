@@ -1,6 +1,7 @@
 //Actions list
 
 //Main Menu
+// 24th August 2016 - Trying to seperate the sequence logic but although function is firing it is not running the sequence.  Something to do with reference the labels perhaps...
 
 //Brick Breaker - SR
 
