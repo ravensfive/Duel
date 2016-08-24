@@ -13,6 +13,8 @@
     //: added gamestates, but need to fix contact between ball and block into game over state, not curently working -  SG
 
 //General concepts
+//* 23rd August 2016 - When an objects hits the bottom, didcontact firing twice (dropping blocks as example) - Complete
+    //added shapenode at bottom of frame, to stop duplicate calls to contact event
 
 //*When an objects hits the bottom, didcontact firing twice (dropping blocks as example) - Complete        - added shapenode at bottom of frame, to stop duplicate calls to contact event
 
