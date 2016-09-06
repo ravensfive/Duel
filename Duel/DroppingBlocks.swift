@@ -53,13 +53,14 @@ class DroppingBlocks: SKScene, SKPhysicsContactDelegate {
         //set up a frame along the bottom of the gamescene to detect collisons
         let bottomRect = SKShapeNode(rectOfSize: CGSize(width: frame.size.width, height: 5))
         bottomRect.position = CGPoint(x: frame.size.width/2, y: frame.origin.y)
-        bottomRect.fillColor = SKColor.blueColor()
+        bottomRect.fillColor = SKColor.clearColor()
         //declare bottom as a node
         //let bottom = SKNode()
        //set physics body for node/bottom
         bottomRect.physicsBody = SKPhysicsBody(rectangleOfSize: bottomRect.frame.size)
         bottomRect.physicsBody?.pinned = true
         bottomRect.physicsBody?.allowsRotation = false
+        bottomRect.name = "bottom"
         //add bottom line to the scene
         addChild(bottomRect)
         
@@ -104,7 +105,7 @@ class DroppingBlocks: SKScene, SKPhysicsContactDelegate {
     
     //touches began class, called when user first touches the screen anywhere
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        
+        print (gameState.currentState)
         //declare touch and touch location
         let touch = touches.first
         let touchlocation = touch!.locationInNode(self)
@@ -140,9 +141,6 @@ class DroppingBlocks: SKScene, SKPhysicsContactDelegate {
         default:break
             
         }
-        
-        
-        
 
     }
     
@@ -191,10 +189,10 @@ class DroppingBlocks: SKScene, SKPhysicsContactDelegate {
                 addFallingBlock()
             }
         }
-        else if contact.bodyA.categoryBitMask == PlayerCategory {
-            print ("game over")
-            contact.bodyA.node?.removeFromParent()
-            contact.bodyB.node?.removeFromParent()
+        else if contact.bodyB.categoryBitMask == PlayerCategory {
+            print ("before gamover")
+            print (gameState.currentState)
+            gameState.enterState(GameOverDB)
         }
         
     }
