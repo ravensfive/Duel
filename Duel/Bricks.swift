@@ -1,5 +1,11 @@
 //Brick Breaker Class
 
+//Actions in progress
+
+// incorporate bottom edge logic to brick breaker **
+
+// Check out the folder structure of Dropping Blocks, think this makes sense, easier to navigate and segregate games? put brick breacker into same logic **
+
 //import spritekit
 import SpriteKit
 import GameplayKit

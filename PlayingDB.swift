@@ -19,7 +19,7 @@ class PlayingDB: GKState {
     
     override func didEnterWithPreviousState(previousState: GKState?) {
         if previousState is WaitingForTapDB {
-            print("change to playing db")
+           
             //add starting block
             scene.addFallingBlock()
             
@@ -31,7 +31,7 @@ class PlayingDB: GKState {
     }
     
     override func isValidNextState(stateClass: AnyClass) -> Bool {
-        return stateClass is GameOver.Type
+        return stateClass is GameOverDB.Type
     }
 }
 

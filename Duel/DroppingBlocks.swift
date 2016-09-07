@@ -20,7 +20,7 @@ class DroppingBlocks: SKScene, SKPhysicsContactDelegate {
     var isfingeronplayer = false
     var TouchLocation:CGPoint = CGPointZero
     
-    lazy var gameState:GKStateMachine = GKStateMachine(states:[WaitingForTapDB(scene: self),PlayingDB(scene:self),GameOverDB(scene:self)])
+    lazy var gameStateDB:GKStateMachine = GKStateMachine(states:[WaitingForTapDB(scene: self),PlayingDB(scene:self),GameOverDB(scene:self)])
     
     //didmovetoview function, called when view loads
     override func didMoveToView(view: SKView) {
@@ -28,7 +28,7 @@ class DroppingBlocks: SKScene, SKPhysicsContactDelegate {
         //set initial physics of gamescene
         self.physicsWorld.contactDelegate = self
         
-        gameState.enterState(WaitingForTapDB)
+        gameStateDB.enterState(WaitingForTapDB)
         
         //set scene gravity
         scene?.physicsWorld.gravity = CGVector(dx: 0, dy: -3)
@@ -105,21 +105,21 @@ class DroppingBlocks: SKScene, SKPhysicsContactDelegate {
     
     //touches began class, called when user first touches the screen anywhere
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        print (gameState.currentState)
+        
         //declare touch and touch location
         let touch = touches.first
         let touchlocation = touch!.locationInNode(self)
         let body = physicsWorld.bodyAtPoint(touchlocation)
         
         //test current state and if in waiting for tap state then switch to playing
-        switch gameState.currentState {
+        switch gameStateDB.currentState {
         case is WaitingForTapDB:
             
             //test if the body touched is the ball
             if body?.node!.name == "player" {
                 
                 //Set game state to playing
-                gameState.enterState(PlayingDB)
+                gameStateDB.enterState(PlayingDB)
                 
             }
             
@@ -190,9 +190,9 @@ class DroppingBlocks: SKScene, SKPhysicsContactDelegate {
             }
         }
         else if contact.bodyB.categoryBitMask == PlayerCategory {
-            print ("before gamover")
-            print (gameState.currentState)
-            gameState.enterState(GameOverDB)
+            
+            gameStateDB.enterState(GameOverDB)
+            
         }
         
     }

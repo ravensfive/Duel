@@ -23,6 +23,7 @@ class GameOver: GKState {
             let paddle = scene.childNodeWithName("paddle") as! SKSpriteNode
             ball.removeFromParent()
             paddle.removeFromParent()
+        print("Gameover")
         }
     }
     

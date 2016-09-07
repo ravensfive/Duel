@@ -1,10 +1,6 @@
-//
-//  MainMenu.swift
-//  Duel
-//
-//  Created by Steven Gooday on 21/07/2016.
-//  Copyright © 2016 DT5Ravens. All rights reserved.
-//
+//Main Menu class
+
+//  Trying to seperate the sequence logic but although function is firing it is not running the sequence.  Something to do with reference the labels perhaps... **
 
 import SpriteKit
 import GameplayKit

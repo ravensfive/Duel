@@ -18,7 +18,7 @@ class WaitingForTapDB: GKState {
     }
 
     override func didEnterWithPreviousState(previousState: GKState?) {
-     print("entered waiting for tap state")
+     
     }
     
     override func willExitWithNextState(nextState: GKState) {

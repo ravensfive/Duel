@@ -119,12 +119,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Duel/DroppingBlocks.swift"
-            timestampString = "494840143.051376"
+            timestampString = "494926345.094437"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "192"
             endingLineNumber = "192"
             landmarkName = "didBeginContact(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GameOverDB.swift"
+            timestampString = "494926157.585667"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "20"
+            endingLineNumber = "20"
+            landmarkName = "didEnterWithPreviousState(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

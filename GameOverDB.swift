@@ -18,11 +18,11 @@ class GameOverDB: GKState {
     }
     
     override func didEnterWithPreviousState(previousState: GKState?) {
-        print("gamestate")
+        
         if previousState is PlayingDB {
-            print("gamoever")
+        
             let player = scene.childNodeWithName("player") as! SKShapeNode
-            let block = scene.childNodeWithName("fallingblock") as! SKSpriteNode
+            let block = scene.childNodeWithName("fallingblock") as! SKShapeNode
             let bottom = scene.childNodeWithName("bottom") as! SKShapeNode
             
             bottom.removeFromParent()
