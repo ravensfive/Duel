@@ -125,7 +125,7 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
         //add to scene
         self.addChild(ELlabel)
         
-        OpeningSequence()
+        //OpeningSequence()
         //let DUlabel = SKSpriteNode(imageNamed: "DU")
         //let ELlabel = SKSpriteNode(imageNamed: "EL")
         

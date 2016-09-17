@@ -4,6 +4,10 @@
 //
 //  Created by Steven Gooday on 19/08/2016.
 //  Copyright © 2016 DT5Ravens. All rights reserved.
+
+//Actions in progress
+
+// Got an unwrapping optional error on the Player object Line 161 - 16th September 2016
 //
 
 import UIKit

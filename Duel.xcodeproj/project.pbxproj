@@ -133,14 +133,12 @@
 			children = (
 				23A738E31D6DB21200E9428A /* Administration */,
 				23A738E01D6DAFC600E9428A /* Dropping Blocks */,
-				239174E51D5DB066003C991B /* GameStates */,
+				E164166E1D8DF75F0056B810 /* Bricks */,
 				232382371D40B65400780598 /* AppDelegate.swift */,
 				2323823D1D40B65400780598 /* GameViewController.swift */,
 				232382691D40B70800780598 /* MainMenu.sks */,
 				2323826B1D40B71C00780598 /* MainMenu.swift */,
-				23FA283C1D474009006CDC20 /* Bricks.sks */,
 				2323823F1D40B65400780598 /* Main.storyboard */,
-				23FA283E1D47402C006CDC20 /* Bricks.swift */,
 				239174EC1D5DB26D003C991B /* Sounds */,
 				232382421D40B65400780598 /* Assets.xcassets */,
 				232382441D40B65400780598 /* LaunchScreen.storyboard */,
@@ -170,7 +168,9 @@
 		239174E51D5DB066003C991B /* GameStates */ = {
 			isa = PBXGroup;
 			children = (
-				23A738D81D6DAAE400E9428A /* Bricks */,
+				239174E81D5DB19B003C991B /* GameOver.swift */,
+				239174E31D5DB053003C991B /* Playing.swift */,
+				239174E61D5DB12C003C991B /* WaitingForTap.swift */,
 			);
 			name = GameStates;
 			path = ..;
@@ -184,16 +184,6 @@
 				239174EA1D5DB239003C991B /* SwishTrimmed.m4a */,
 			);
 			name = Sounds;
-			sourceTree = "<group>";
-		};
-		23A738D81D6DAAE400E9428A /* Bricks */ = {
-			isa = PBXGroup;
-			children = (
-				239174E81D5DB19B003C991B /* GameOver.swift */,
-				239174E31D5DB053003C991B /* Playing.swift */,
-				239174E61D5DB12C003C991B /* WaitingForTap.swift */,
-			);
-			name = Bricks;
 			sourceTree = "<group>";
 		};
 		23A738D91D6DAB3800E9428A /* Game States */ = {
@@ -224,6 +214,16 @@
 				23984FC21D6C2B3C00407154 /* ActionsComments.swift */,
 			);
 			name = Administration;
+			sourceTree = "<group>";
+		};
+		E164166E1D8DF75F0056B810 /* Bricks */ = {
+			isa = PBXGroup;
+			children = (
+				239174E51D5DB066003C991B /* GameStates */,
+				23FA283C1D474009006CDC20 /* Bricks.sks */,
+				23FA283E1D47402C006CDC20 /* Bricks.swift */,
+			);
+			name = Bricks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
