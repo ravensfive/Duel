@@ -7,8 +7,6 @@
 
 //Actions in progress
 
-// Got an unwrapping optional error on the Player object Line 161 - 16th September 2016
-//
 
 import UIKit
 import SpriteKit
@@ -22,17 +20,17 @@ class DroppingBlocks: SKScene, SKPhysicsContactDelegate {
     let BottomCategory:UInt32 = 0x1 << 2 // 4
     
     var isfingeronplayer = false
-    var TouchLocation:CGPoint = CGPointZero
+    var TouchLocation:CGPoint = CGPoint.zero
     
     lazy var gameStateDB:GKStateMachine = GKStateMachine(states:[WaitingForTapDB(scene: self),PlayingDB(scene:self),GameOverDB(scene:self)])
     
     //didmovetoview function, called when view loads
-    override func didMoveToView(view: SKView) {
+    override func didMove(to view: SKView) {
     
         //set initial physics of gamescene
         self.physicsWorld.contactDelegate = self
         
-        gameStateDB.enterState(WaitingForTapDB)
+        gameStateDB.enter(WaitingForTapDB.self)
         
         //set scene gravity
         scene?.physicsWorld.gravity = CGVector(dx: 0, dy: -3)
@@ -49,19 +47,19 @@ class DroppingBlocks: SKScene, SKPhysicsContactDelegate {
     func addBorders() {
         
         //set up frame around full game scene
-        let borderBody = SKPhysicsBody(edgeLoopFromRect: self.frame)
+        let borderBody = SKPhysicsBody(edgeLoopFrom: self.frame)
         //set border friction to zero, removing physics
         borderBody.friction = 0
         self.physicsBody = borderBody
         
         //set up a frame along the bottom of the gamescene to detect collisons
-        let bottomRect = SKShapeNode(rectOfSize: CGSize(width: frame.size.width, height: 5))
+        let bottomRect = SKShapeNode(rectOf: CGSize(width: frame.size.width, height: 5))
         bottomRect.position = CGPoint(x: frame.size.width/2, y: frame.origin.y)
-        bottomRect.fillColor = SKColor.clearColor()
+        bottomRect.fillColor = SKColor.clear
         //declare bottom as a node
         //let bottom = SKNode()
        //set physics body for node/bottom
-        bottomRect.physicsBody = SKPhysicsBody(rectangleOfSize: bottomRect.frame.size)
+        bottomRect.physicsBody = SKPhysicsBody(rectangleOf: bottomRect.frame.size)
         bottomRect.physicsBody?.pinned = true
         bottomRect.physicsBody?.allowsRotation = false
         bottomRect.name = "bottom"
@@ -78,23 +76,23 @@ class DroppingBlocks: SKScene, SKPhysicsContactDelegate {
         
         let player = SKShapeNode(circleOfRadius: 50)
         player.position = CGPoint(x: frame.size.width/2, y: 25)
-        player.fillColor = SKColor.redColor()
+        player.fillColor = SKColor.red
         player.physicsBody = SKPhysicsBody(circleOfRadius: 50)
         player.physicsBody!.categoryBitMask = PlayerCategory
         player.name = "player"
         player.physicsBody!.affectedByGravity = false
-        player.physicsBody!.dynamic = true
+        player.physicsBody!.isDynamic = true
         self.addChild(player)
         
     }
     
     //add custom block
     func addFallingBlock() {
-    let fallingblock = SKShapeNode(rectOfSize: CGSize(width: randomInt(100, max:1000), height: randomInt(20, max: 250)))
+    let fallingblock = SKShapeNode(rectOf: CGSize(width: randomInt(100, max:1000), height: randomInt(20, max: 250)))
     //set the brick position
     fallingblock.position = CGPoint(x: randomInt(100, max: 900), y: 1900)
-    fallingblock.fillColor = SKColor.darkGrayColor()
-    fallingblock.physicsBody = SKPhysicsBody(rectangleOfSize: fallingblock.frame.size)
+    fallingblock.fillColor = SKColor.darkGray
+    fallingblock.physicsBody = SKPhysicsBody(rectangleOf: fallingblock.frame.size)
     fallingblock.physicsBody!.affectedByGravity = true
     fallingblock.name = "fallingblock"
     fallingblock.physicsBody!.categoryBitMask = BlockCategory
@@ -108,12 +106,12 @@ class DroppingBlocks: SKScene, SKPhysicsContactDelegate {
     }
     
     //touches began class, called when user first touches the screen anywhere
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         //declare touch and touch location
         let touch = touches.first
-        let touchlocation = touch!.locationInNode(self)
-        let body = physicsWorld.bodyAtPoint(touchlocation)
+        let touchlocation = touch!.location(in: self)
+        let body = physicsWorld.body(at: touchlocation)
         
         //test current state and if in waiting for tap state then switch to playing
         switch gameStateDB.currentState {
@@ -123,7 +121,7 @@ class DroppingBlocks: SKScene, SKPhysicsContactDelegate {
             if body?.node!.name == "player" {
                 
                 //Set game state to playing
-                gameStateDB.enterState(PlayingDB)
+                gameStateDB.enter(PlayingDB.self)
                 
             }
             
@@ -138,8 +136,8 @@ class DroppingBlocks: SKScene, SKPhysicsContactDelegate {
         case is GameOverDB:
             
             let newscene = MainMenu(fileNamed: "MainMenu")
-            newscene!.scaleMode = .AspectFill
-            let reveal = SKTransition.flipHorizontalWithDuration(0.5)
+            newscene!.scaleMode = .aspectFill
+            let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
             self.view?.presentScene(newscene!, transition: reveal)
             
         default:break
@@ -149,24 +147,24 @@ class DroppingBlocks: SKScene, SKPhysicsContactDelegate {
     }
     
         //touches moved class, called when the users moves once they have touched the screen anywhere
-        override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
             
             // check if finger is on the player node, set in touches began class
             if isfingeronplayer {
                 
                 //this code sets the touch location of the touch
-                TouchLocation = touches.first!.locationInNode(self)
+                TouchLocation = touches.first!.location(in: self)
                 
                 //this defines the object thats been touched and moves the object to the new location (with the finger)
-                let player = childNodeWithName("player") as! SKShapeNode
-                player.position = TouchLocation
+                let player = childNode(withName: "player") as? SKShapeNode
+                player?.position = TouchLocation
                 
             }
             
         }
         
         //touches ended class, called when touch is released
-        override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
             
             //set isFingerOnPaddle variable to false
             isfingeronplayer = false
@@ -174,12 +172,12 @@ class DroppingBlocks: SKScene, SKPhysicsContactDelegate {
         }
     
     //update class, also used in moving the paddle
-    override func update(currentTime: CFTimeInterval) {
+    override func update(_ currentTime: TimeInterval) {
         
     }
     
     //did begin contact class, called when ball hits an object with a different category mask
-    func didBeginContact(contact: SKPhysicsContact) {
+    func didBegin(_ contact: SKPhysicsContact) {
         
         //bodyA is the object that has been hit
         //bodyB is the object that has hit
@@ -195,14 +193,14 @@ class DroppingBlocks: SKScene, SKPhysicsContactDelegate {
         }
         else if contact.bodyB.categoryBitMask == PlayerCategory {
             
-            gameStateDB.enterState(GameOverDB)
+            gameStateDB.enter(GameOverDB.self)
             
         }
         
     }
     
     //returns a random integer between the passed min and maximum values
-    func randomInt(min: Int, max:Int) -> Int {
+    func randomInt(_ min: Int, max:Int) -> Int {
         return min + Int(arc4random_uniform(UInt32(max - min + 1)))
     }
 }

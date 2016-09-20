@@ -17,13 +17,13 @@ class GameOverDB: GKState {
         super.init()
     }
     
-    override func didEnterWithPreviousState(previousState: GKState?) {
+    override func didEnter(from previousState: GKState?) {
         
         if previousState is PlayingDB {
         
-            let player = scene.childNodeWithName("player") as! SKShapeNode
-            let block = scene.childNodeWithName("fallingblock") as! SKShapeNode
-            let bottom = scene.childNodeWithName("bottom") as! SKShapeNode
+            let player = scene.childNode(withName: "player") as! SKShapeNode
+            let block = scene.childNode(withName: "fallingblock") as! SKShapeNode
+            let bottom = scene.childNode(withName: "bottom") as! SKShapeNode
             
             bottom.removeFromParent()
             player.removeFromParent()
@@ -31,7 +31,7 @@ class GameOverDB: GKState {
         }
     }
     
-    override func isValidNextState(stateClass: AnyClass) -> Bool {
+    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         return stateClass is WaitingForTapDB.Type
     }
     

@@ -17,19 +17,19 @@ class WaitingForTap: GKState {
         super.init()
     }
     
-    override func didEnterWithPreviousState(previousState: GKState?) {
+    override func didEnter(from previousState: GKState?) {
         //let scale = SKAction.scaleTo(1.0, duration: 0.25)
         //scene.childNodeWithName(GameMessageName)!.runAction(scale)
     }
     
-    override func willExitWithNextState(nextState: GKState) {
+    override func willExit(to nextState: GKState) {
         if nextState is Playing {
             //let scale = SKAction.scaleTo(0, duration: 0.4)
             //scene.childNodeWithName(GameMessageName)!.runAction(scale)
         }
     }
     
-    override func isValidNextState(stateClass: AnyClass) -> Bool {
+    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         return stateClass is Playing.Type
     }
     

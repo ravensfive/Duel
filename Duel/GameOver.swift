@@ -17,16 +17,16 @@ class GameOver: GKState {
         super.init()
     }
     
-    override func didEnterWithPreviousState(previousState: GKState?) {
+    override func didEnter(from previousState: GKState?) {
         if previousState is Playing {
-            let ball = scene.childNodeWithName("ball") as! SKShapeNode
-            let paddle = scene.childNodeWithName("paddle") as! SKSpriteNode
+            let ball = scene.childNode(withName: "ball") as! SKShapeNode
+            let paddle = scene.childNode(withName: "paddle") as! SKSpriteNode
             ball.removeFromParent()
             paddle.removeFromParent()
         }
     }
     
-    override func isValidNextState(stateClass: AnyClass) -> Bool {
+    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         return stateClass is WaitingForTap.Type
     }
     

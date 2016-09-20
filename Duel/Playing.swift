@@ -17,17 +17,17 @@ class Playing: GKState {
         super.init()
     }
     
-    override func didEnterWithPreviousState(previousState: GKState?) {
+    override func didEnter(from previousState: GKState?) {
         if previousState is WaitingForTap {
             
         
             
-            let ball = scene.childNodeWithName("ball") as! SKShapeNode
+            let ball = scene.childNode(withName: "ball") as! SKShapeNode
             ball.physicsBody!.applyImpulse(CGVector(dx: 300, dy: 300))
         }
     }
     
-    override func updateWithDeltaTime(seconds: NSTimeInterval) {
+    override func update(deltaTime seconds: TimeInterval) {
 //        let ball = scene.childNodeWithName("ball") as! SKSpriteNode
 //        
 //        let maxSpeed: CGFloat = 10
@@ -52,7 +52,7 @@ class Playing: GKState {
         //}
     }
     
-    override func isValidNextState(stateClass: AnyClass) -> Bool {
+    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         return stateClass is GameOver.Type
     }
     

@@ -17,7 +17,7 @@ class PlayingDB: GKState {
         super.init()
     }
     
-    override func didEnterWithPreviousState(previousState: GKState?) {
+    override func didEnter(from previousState: GKState?) {
         if previousState is WaitingForTapDB {
            
             //add starting block
@@ -26,11 +26,11 @@ class PlayingDB: GKState {
         }
     }
     
-    override func updateWithDeltaTime(seconds: NSTimeInterval) {
+    override func update(deltaTime seconds: TimeInterval) {
         
     }
     
-    override func isValidNextState(stateClass: AnyClass) -> Bool {
+    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         return stateClass is GameOverDB.Type
     }
 }
