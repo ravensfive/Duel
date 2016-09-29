@@ -21,7 +21,7 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
     var isFingerOnPaddle = false
     var TouchLocation:CGPoint = CGPoint.zero
     
-    lazy var gameState:GKStateMachine = GKStateMachine(states:[WaitingForTap(scene: self),Playing(scene:self),GameOver(scene:self)])
+    lazy var gameState:GKStateMachine = GKStateMachine(states:[WaitingForTap(scene:self),Playing(scene:self),GameOver(scene:self)])
     
     
     //didmovetoview function, called when view loads
@@ -77,7 +77,7 @@ class Bricks: SKScene, SKPhysicsContactDelegate {
     
     //custom class to add paddle
     func addPaddle() {
-        
+    
         let paddle = SKSpriteNode(imageNamed: "Paddle")
         //let paddle = SKShapeNode(rectOfSize: CGSize(width: 305, height: 75), cornerRadius: 20)
         //paddle.fillColor = SKColor.brownColor()

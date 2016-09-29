@@ -22,7 +22,7 @@ class DroppingBlocks: SKScene, SKPhysicsContactDelegate {
     var isfingeronplayer = false
     var TouchLocation:CGPoint = CGPoint.zero
     
-    lazy var gameStateDB:GKStateMachine = GKStateMachine(states:[WaitingForTapDB(scene: self),PlayingDB(scene:self),GameOverDB(scene:self)])
+    lazy var gameState:GKStateMachine = GKStateMachine(states:[WaitingForTap(scene: self),Playing(scene:self),GameOver(scene:self)])
     
     //didmovetoview function, called when view loads
     override func didMove(to view: SKView) {
@@ -30,7 +30,7 @@ class DroppingBlocks: SKScene, SKPhysicsContactDelegate {
         //set initial physics of gamescene
         self.physicsWorld.contactDelegate = self
         
-        gameStateDB.enter(WaitingForTapDB.self)
+        gameState.enter(WaitingForTap.self)
         
         //set scene gravity
         scene?.physicsWorld.gravity = CGVector(dx: 0, dy: -3)
@@ -114,18 +114,18 @@ class DroppingBlocks: SKScene, SKPhysicsContactDelegate {
         let body = physicsWorld.body(at: touchlocation)
         
         //test current state and if in waiting for tap state then switch to playing
-        switch gameStateDB.currentState {
-        case is WaitingForTapDB:
+        switch gameState.currentState {
+        case is WaitingForTap:
             
             //test if the body touched is the ball
             if body?.node!.name == "player" {
                 
                 //Set game state to playing
-                gameStateDB.enter(PlayingDB.self)
+                gameState.enter(Playing.self)
                 
             }
             
-        case is PlayingDB:
+        case is Playing:
             
             if body?.node!.name == "player" {
                 
@@ -133,7 +133,7 @@ class DroppingBlocks: SKScene, SKPhysicsContactDelegate {
                 
             }
             
-        case is GameOverDB:
+        case is GameOver:
             
             let newscene = MainMenu(fileNamed: "MainMenu")
             newscene!.scaleMode = .aspectFill
@@ -193,7 +193,7 @@ class DroppingBlocks: SKScene, SKPhysicsContactDelegate {
         }
         else if contact.bodyB.categoryBitMask == PlayerCategory {
             
-            gameStateDB.enter(GameOverDB.self)
+            gameState.enter(GameOver.self)
             
         }
         

@@ -10,20 +10,18 @@ import SpriteKit
 import GameplayKit
 
 class Playing: GKState {
-    unowned let scene: Bricks
     
     init(scene: SKScene) {
-        self.scene = scene as! Bricks
         super.init()
     }
     
     override func didEnter(from previousState: GKState?) {
         if previousState is WaitingForTap {
-            
+            print("playing")
         
             
-            let ball = scene.childNode(withName: "ball") as! SKShapeNode
-            ball.physicsBody!.applyImpulse(CGVector(dx: 300, dy: 300))
+            //let ball = scene.childNode(withName: "ball") as! SKShapeNode
+            //ball.physicsBody!.applyImpulse(CGVector(dx: 300, dy: 300))
         }
     }
     

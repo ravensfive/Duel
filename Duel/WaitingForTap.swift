@@ -10,14 +10,14 @@ import SpriteKit
 import GameplayKit
 
 class WaitingForTap: GKState {
-    unowned let scene: Bricks
     
     init(scene: SKScene) {
-        self.scene = scene as! Bricks
         super.init()
     }
     
+    
     override func didEnter(from previousState: GKState?) {
+        print("waiting")
         //let scale = SKAction.scaleTo(1.0, duration: 0.25)
         //scene.childNodeWithName(GameMessageName)!.runAction(scale)
     }
